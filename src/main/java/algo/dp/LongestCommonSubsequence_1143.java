@@ -28,37 +28,18 @@ public class LongestCommonSubsequence_1143 {
     // b  1   2   3   4
     // a
     int len1 = text1.length(), len2 = text2.length();
-    var dp = new int[len2][len1];
-    for (var i = 0; i < len1; i++) {
-      if (text1.charAt(i) == text2.charAt(0)) {
-        dp[0][i] = 1;
-      } else {
-        if (i > 0) {
-          dp[0][i] = dp[0][i - 1];
-        } else {
-          dp[0][i] = 0;
-        }
-      }
-    }
-    for (var i = 1; i < len2; i++) {
-      for (var j = 0; j < len1; j++) {
-        if (text1.charAt(j) == text2.charAt(i)) {
-          if (j > 0) {
+    var dp = new int[len2 + 1][len1 + 1];
+    for (var i = 1; i <= len2; i++) {
+      for (var j = 1; j <= len1; j++) {
+        if (text1.charAt(j - 1) == text2.charAt(i - 1)) {
             dp[i][j] = dp[i - 1][j - 1] + 1;
-          } else {
-            dp[i][j] = 1;
-          }
         } else {
-          if (j > 0) {
             dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
-          } else {
-            dp[i][j] = dp[i - 1][j];
-          }
         }
       }
     }
 
-    return dp[len2 - 1][len1 - 1];
+    return dp[len2][len1];
   }
 
   public static void main(String[] args) {

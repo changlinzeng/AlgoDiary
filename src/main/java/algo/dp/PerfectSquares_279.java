@@ -1,43 +1,20 @@
 package algo.dp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PerfectSquares_279 {
-    private static int least = Integer.MAX_VALUE;
     public static int numSquares(int n) {
-        least = Integer.MAX_VALUE;
-        var roots = new ArrayList<Integer>();
-        for (var i = 1; i * i <= n; i++) {
-            roots.add(i * i);
-        }
-        var squares = new Integer[roots.size()];
-        roots.toArray(squares);
-
-        backtrack(squares, n, new ArrayList<>());
-        return least;
-    }
-
-    private static void backtrack(Integer[] squares, int sum, List<Integer> path) {
-        if (path.size() > least) {
-            return;
-        }
-        // find the largest square root
-        var max = squares.length - 1;
-        while (squares[max] > sum) {
-            max--;
-        }
-        for (var i = max; i >= 0; i--) {
-            var left = sum - squares[i];
-            path.add(squares[i]);
-            if (left == 0) {
-                least = Math.min(least, path.size());
-                path.remove(path.size() - 1);
-                return;
+        var dp = new int[n + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (var i = 1; i <= n; i++) {
+            for (var j = 1; j * j <= i; j++) {
+                dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
             }
-            backtrack(squares, left, path);
-            path.remove(path.size() - 1);
         }
+        return dp[n];
     }
 
     public static void main(String[] args) {
