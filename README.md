@@ -4,5 +4,5 @@ This is an exercise project aims to solve the algo problems and a summary on the
 
 See details on
 
-- Data Structure
-- Algorithm
+- [Data Structure](https://github.com/changlinzeng/AlgoDiary/blob/main/docs/DataStructure.md)
+- [Algorithm](https://github.com/changlinzeng/AlgoDiary/blob/main/docs/Algorithm.md)
