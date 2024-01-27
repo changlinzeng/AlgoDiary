@@ -558,9 +558,47 @@ The most importance thing in DP is to find the state transit formula.
 ### String
 ### Stock Trade
 
+> Quiz
+> 1. [Jump Game (LC-55 / Medium)](https://leetcode.com/problems/jump-game)
+> 2. [Jump Game II (LC-45 / Medium)](https://leetcode.com/problems/jump-game-ii)
+> 3. [Jump Game VI (LC-1696 / Medium)](https://leetcode.com/problems/jump-game-vi)
+> 4. [Maximum Subarray (LC-53 / Medium)](https://leetcode.com/problems/maximum-subarray)
+> 5. [Unique Paths (LC-62 / Medium)](https://leetcode.com/problems/unique-paths)
+> 6. [Unique Paths II (LC-63 / Medium)](https://leetcode.com/problems/unique-paths-ii)
+> 7. [Minimum Path Sum (LC-64 / Medium)](https://leetcode.com/problems/minimum-path-sum)
+> 8. [Climbing Stairs (LC-70 / Easy)](https://leetcode.com/problems/climbing-stairs)
+> 9. [Decode Ways (LC-91 / Medium)](https://leetcode.com/problems/decode-ways)
+> 10. [Unique Binary Search Trees (LC-96 / Medium)](https://leetcode.com/problems/unique-binary-search-trees)
+> 11. [Distinct Subsequences (LC-115 / Hard)](https://leetcode.com/problems/distinct-subsequences)
+> 12. [Best Time to Buy and Sell Stock III (LC-123 / Medium)](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii)
+> 13. [Maximum Product Subarray (LC-152 / Medium)](https://leetcode.com/problems/maximum-product-subarray)
+> 14. [House Robber (LC-198 / Medium)](https://leetcode.com/problems/house-robber)
+> 15. [House Robber II (LC-213 / Medium)](https://leetcode.com/problems/house-robber-ii)
+> 16. [Maximal Square (LC-221 / Medium)](https://leetcode.com/problems/maximal-square)
+> 17. [Perfect Squares (LC-279 / Medium)](https://leetcode.com/problems/perfect-squares)
+> 18. [Largest Divisible Subset (LC-368 / Medium)](https://leetcode.com/problems/largest-divisible-subset)
+> 19. [Wiggle Subsequence (LC-376 / Medium)](https://leetcode.com/problems/wiggle-subsequence)
+> 20. [Longest Turbulent Subarray (LC-978 / Medium)](https://leetcode.com/problems/longest-turbulent-subarray)
+> 21. [Arithmetic Slices (LC-413 / Medium)](https://leetcode.com/problems/arithmetic-slices)
+> 22. [Unique Substrings in Wraparound String (LC-467 / Medium)](https://leetcode.com/problems/unique-substrings-in-wraparound-string)
+> 23. [Longest Palindromic Subsequence (LC-516 / Medium)](https://leetcode.com/problems/longest-palindromic-subsequence)
+> 24. [Contiguous Array (LC-525 / Medium)](https://leetcode.com/problems/contiguous-array)
+> 25. [Palindromic Substrings (LC-647 / Medium)](https://leetcode.com/problems/palindromic-substrings)
+> 26. [Subarray Product Less Than K (LC-713 / Medium)](https://leetcode.com/problems/subarray-product-less-than-k)
+> 27. [Maximum Length of Repeated Subarray (LC-718 / Medium)](https://leetcode.com/problems/maximum-length-of-repeated-subarray)
+> 28. [Sum of Subarray Minimums (LC-907 / Medium)](https://leetcode.com/problems/sum-of-subarray-minimums)
+> 29. [Dice Roll Simulation (LC-1223 / Hard)](https://leetcode.com/problems/dice-roll-simulation)
+> 30. [Find Two Non-overlapping Sub-arrays Each With Target Sum (LC-1477 / Medium)](https://leetcode.com/problems/find-two-non-overlapping-sub-arrays-each-with-target-sum)
+> 31. [Number of Sub-arrays With Odd Sum (LC-1524)](https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum)
 
-## 11. Find Duplicates
+## 11. Greedy
+To use greedy algorithm, we have the assumption that local optimal choice will lead to global optimal solution. But it is not always this case
+> Quiz
+> 1. [Split Array into Consecutive Subsequences (LC-659 / Medium)](https://leetcode.com/problems/split-array-into-consecutive-subsequences)
+> 2. [Course Schedule III (LC-630 / Hard)](https://leetcode.com/problems/course-schedule-iii)
+
+## 12. Find Duplicates
 > Quiz
 > 1. [Find All Duplicates in an Array (LC-442 / Medium)](https://leetcode.com/problems/find-all-duplicates-in-an-array)
 
-## 12. Math
+## 13. Math

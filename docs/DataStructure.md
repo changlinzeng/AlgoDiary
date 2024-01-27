@@ -33,6 +33,7 @@ Besides traditional pattern match, there are other ways of compare two string th
 > 6. [Longest Substring with At Least K Repeating Characters (LC-395 / Medium)](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters)
 > 7. [Find All Anagrams in a String (LC-438 / Medium)](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 > 8. [Swap For Longest Repeated Character Substring (LC-1156 / Medium)](https://leetcode.com/problems/swap-for-longest-repeated-character-substring)
+> 9. [Minimum Deletions to Make String Balanced (LC-1653 / Medium)](https://leetcode.com/problems/minimum-deletions-to-make-string-balanced)
 
 
 ## 3. Matrix
