@@ -590,6 +590,9 @@ The most importance thing in DP is to find the state transit formula.
 > 29. [Dice Roll Simulation (LC-1223 / Hard)](https://leetcode.com/problems/dice-roll-simulation)
 > 30. [Find Two Non-overlapping Sub-arrays Each With Target Sum (LC-1477 / Medium)](https://leetcode.com/problems/find-two-non-overlapping-sub-arrays-each-with-target-sum)
 > 31. [Number of Sub-arrays With Odd Sum (LC-1524)](https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum)
+> 32. [Longest Arithmetic Subsequence (LC-1027 / Medium)](https://leetcode.com/problems/longest-arithmetic-subsequence)
+> 33. [Number of Longest Increasing Subsequence (LC-673 / Medium)](https://leetcode.com/problems/number-of-longest-increasing-subsequence/)
+> 34. [Length of Longest Fibonacci Subsequence (LC-873 / Medium)](https://leetcode.com/problems/length-of-longest-fibonacci-subsequence)
 
 ## 11. Greedy
 To use greedy algorithm, we have the assumption that local optimal choice will lead to global optimal solution. But it is not always this case

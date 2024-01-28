@@ -11,6 +11,7 @@ public class DiceRollSimulation_1223 {
         // the total number of combinations (sum every face) of every roll
         var total = new long[n + 1];
 
+        Arrays.fill(dp[0], 0);
         Arrays.fill(dp[1], 1);
         total[0] = 1;
         total[1] = faces;
@@ -19,10 +20,13 @@ public class DiceRollSimulation_1223 {
             for (var j = 0; j < faces; j++) {
                 for (var k = 1; k <= rollMax[j] && k <= i; k++) {
                     // number of rolls not less than consecutive occurrence for this face, then we
-                    dp[i][j] += ((total[i - k] - dp[i - k][j])) % mod;
+                    var countExceptK = total[i - k] - dp[i - k][j];
+                    if (countExceptK < 0) {
+                        countExceptK += mod;
+                    }
+                    dp[i][j] = (dp[i][j] + countExceptK) % mod;
                 }
             }
-//            total[i] = (int)(Arrays.stream(dp[i]).sum() % mod);
             for (var count : dp[i]) {
                 total[i] = (total[i] + count) % mod;
             }
@@ -36,5 +40,6 @@ public class DiceRollSimulation_1223 {
         System.out.println(dieSimulator(2, new int[]{1,1,1,2,2,3}));
         System.out.println(dieSimulator(3, new int[]{1,1,1,2,2,3}));
         System.out.println(dieSimulator(2, new int[]{1,1,2,2,2,3}));
+        System.out.println(dieSimulator(30, new int[]{2,3,1,2,1,2}));
     }
 }

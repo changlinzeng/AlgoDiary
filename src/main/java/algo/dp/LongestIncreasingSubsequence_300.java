@@ -2,7 +2,7 @@ package algo.dp;
 
 import java.util.Arrays;
 
-public class LongestIncreasingSubarray_300 {
+public class LongestIncreasingSubsequence_300 {
   /**
    *
    *  num  [10, 9, 2, 5, 3, 7, 101, 18]
