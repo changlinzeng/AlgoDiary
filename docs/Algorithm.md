@@ -152,6 +152,7 @@ BFS is commonly used in level traversal of a tree or graph. It can also be used 
 > 6. [Open the Lock (LC-752 / Medium)](https://leetcode.com/problems/open-the-lock)
 > 7. [Minimum Genetic Mutation (LC-433 / Medium)](https://leetcode.com/problems/minimum-genetic-mutation)
 > 8. [Time Needed to Inform All Employees (LC-1376 / Medium)](https://leetcode.com/problems/time-needed-to-inform-all-employees)
+> 9. [Rotting Oranges (LC-994 / Medium)](https://leetcode.com/problems/rotting-oranges)
 
 ## 5. Binary Search
 Binary search has the time complexity of O(logN). It requires the array to be sorted. There are some common binary search problems
@@ -418,6 +419,7 @@ Binary search has the time complexity of O(logN). It requires the array to be so
 > 5. [Find Minimum in Rotated Sorted Array II (LC-154 / Hard)](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii)
 > 6. [H Index (LC-274 / Medium)](https://leetcode.com/problems/h-index)
 > 7. [Find K Closest Elements (LC-658 / Medium)](https://leetcode.com/problems/find-k-closest-elements/)
+> 8. [Capacity To Ship Packages Within D Days (LC-1011 / Medium)](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days)
 
 ## 6. Two Pointers / Sliding Window
 > Quiz
