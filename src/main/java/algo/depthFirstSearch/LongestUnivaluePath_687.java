@@ -3,15 +3,21 @@ package algo.depthFirstSearch;
 import datautil.tree.Tree;
 import datautil.tree.TreeNode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LongestUnivaluePath_687 {
   private static int maxLen = 0;
   public static int longestUnivaluePath(TreeNode root) {
-    dfs(root);
+    dfs(root, new HashSet<>());
     return maxLen;
   }
 
-  private static int dfs(TreeNode node) {
+  private static int dfs(TreeNode node, Set<TreeNode> visited) {
     if (node == null) {
+      return 0;
+    }
+    if (visited.contains(node)) {
       return 0;
     }
 
@@ -20,10 +26,12 @@ public class LongestUnivaluePath_687 {
 
     int leftLen = 0, rightLen = 0;
     if (leftVal == node.val) {
-      leftLen += 1 + dfs(node.left);
+      leftLen += 1 + dfs(node.left, visited);
+      visited.add(node.left);
     }
     if (rightVal == node.val) {
-      rightLen += 1 + dfs(node.right);
+      rightLen += 1 + dfs(node.right, visited);
+      visited.add(node.right);
     }
     var len = Math.max(leftLen, rightLen);
     maxLen = Math.max(len, maxLen);
@@ -32,8 +40,8 @@ public class LongestUnivaluePath_687 {
       maxLen = Math.max(maxLen, leftLen + rightLen);
     }
 
-    dfs(node.left);
-    dfs(node.right);
+    dfs(node.left, visited);
+    dfs(node.right, visited);
 
     return len;
   }
