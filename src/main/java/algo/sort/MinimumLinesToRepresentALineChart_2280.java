@@ -26,24 +26,13 @@ public class MinimumLinesToRepresentALineChart_2280 {
     }
 
     private static boolean compareSlope(int[] s1, int[] s2) {
-        if (s1[1] == 0) {
-            return false;
-        }
-        if (s1[0] == 0 && s2[0] == 0) {
-            return true;
-        }
-        if (s1[0] == 0 && s2[0] != 0) {
-            return false;
-        }
-        if (s1[0] * s2[0] < 0) {
-            return false;
-        }
-        return s2[0] / s1[0] == s2[1] / s1[1] && s2[0] % s1[0] == s2[1] % s1[1];
+        return s1[0] * s2[1] == s1[1] * s2[0];
     }
 
     public static void main(String[] args) {
-//        System.out.println(minimumLines(new int[][]{{1,7},{2,6},{3,5},{4,4},{5,4},{6,3}}));
+        System.out.println(minimumLines(new int[][]{{1,7},{2,6},{3,5},{4,4},{5,4},{6,3}}));
         System.out.println(minimumLines(new int[][]{{1,7},{2,6},{3,5},{4,4},{5,4},{6,3},{7,2},{8,1}}));
         System.out.println(minimumLines(new int[][]{{3,4},{1,2},{7,8},{2,3}}));
+        System.out.println(minimumLines(new int[][]{{7,59},{10,62},{22,62},{26,59},{79,92},{94,81},{57,94},{41,81},{68,44},{100,46},{71,85},{39,75},{85,28},{37,43},{75,10},{40,13},{50,82},{45,3},{52,69},{8,91},{91,45},{88,86},{95,93},{14,19},{1,92},{12,35},{16,35},{53,19},{49,14},{6,68}}));
     }
 }

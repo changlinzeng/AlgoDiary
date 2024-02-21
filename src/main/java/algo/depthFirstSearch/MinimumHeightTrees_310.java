@@ -3,80 +3,57 @@ package algo.depthFirstSearch;
 import java.util.*;
 
 public class MinimumHeightTrees_310 {
+    /**
+     * the roots of MHT must be the mid points of the longest leaf to leaf path in the tree.
+     * And to find the longest path, we can first find the farthest leaf from any node, and then find
+     * the farthest leaf from the node found above. Then these two nodes we found are the end points
+     * of the longest path. And last, we find the centers of the longest path
+     */
     public static List<Integer> findMinHeightTrees(int n, int[][] edges) {
-        if (edges.length == 0) {
+        if (n == 1) {
             return List.of(0);
         }
-
-        var minHeight = Integer.MAX_VALUE;
+        var degree = new int[n];
         var adjMap = new HashMap<Integer, List<Integer>>();
-
-        for (var i = 0; i < n; i++) {
-            adjMap.put(i, new ArrayList<>());
+        for (var e : edges) {
+            degree[e[0]]++;
+            degree[e[1]]++;
+            if (!adjMap.containsKey(e[0])) {
+                adjMap.put(e[0], new ArrayList<>());
+            }
+            adjMap.get(e[0]).add(e[1]);
+            if (!adjMap.containsKey(e[1])) {
+                adjMap.put(e[1], new ArrayList<>());
+            }
+            adjMap.get(e[1]).add(e[0]);
         }
-        for (var edge : edges) {
-            adjMap.get(edge[0]).add(edge[1]);
-            adjMap.get(edge[1]).add(edge[0]);
-        }
 
-        var heightMap = new HashMap<Integer, List<Integer>>();
-        var visited = new boolean[n];
+        // add leaf nodes to queue
         var q = new ArrayDeque<Integer>();
-        q.offer(0);
-        while (!q.isEmpty()) {
-            var node = q.poll();
-            if (visited[node]) {
-                continue;
-            }
-            visited[node] = true;
-            var superHeight = false;
-            int maxH = Integer.MIN_VALUE;
-            var hmap = new HashMap<Integer, List<Integer>>();  // height -> child nodes
-            for (var c : adjMap.get(node)) {
-                var v = new boolean[n];
-                v[node] = true;
-                var h = height(adjMap, c, v);
-                if (h > minHeight) {
-                    superHeight = true;
-                    break;
-                }
-                if (h >= maxH) {
-                    maxH = h;
-                    if (!hmap.containsKey(h)) {
-                        hmap.put(h, new ArrayList<>());
-                    }
-                    hmap.get(h).add(c);
-                }
-            }
-            if (superHeight) {
-                continue;
-            }
-            minHeight = Math.min(maxH, minHeight);
-            if (!heightMap.containsKey(maxH)) {
-                heightMap.put(maxH, new ArrayList<>());
-            }
-            heightMap.get(maxH).add(node);
-            // continue with the sub tree with the max height
-            for (var entry : hmap.entrySet()) {
-                if (entry.getKey() == maxH) {
-                    entry.getValue().forEach(q::offer);
-                    break;
-                }
+        for (var i = 0; i < n; i++) {
+            if (degree[i] == 1) {
+                q.offer(i);
             }
         }
-        return heightMap.get(minHeight);
-    }
 
-    private static int height(Map<Integer, List<Integer>> adjMap, int node, boolean[] visited) {
-        if (visited[node] || adjMap.get(node).isEmpty()) {
-            return 0;
+        var nodes = new ArrayList<Integer>();
+        while (!q.isEmpty()) {
+            nodes.clear();
+            var size = q.size();
+            for (var i = 0; i < size; i++) {
+                var node = q.poll();
+                nodes.add(node);
+                degree[node]--;
+                for (var child : adjMap.get(node)) {
+                    degree[child]--;
+                    if (degree[child] == 1) {
+                        q.offer(child);
+                    }
+                }
+            }
         }
-        var h = 0;
-        visited[node] = true;
-        for (var child : adjMap.get(node)) {
-            h = Math.max(h, 1 + height(adjMap, child, visited));
-        }
-        return h;
+
+        return nodes;
     }
 
     public static void main(String[] args) {

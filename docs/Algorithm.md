@@ -71,6 +71,7 @@
 > 3. [Shortest Unsorted Continuous Subarray (LC-581 / Medium)](https://leetcode.com/problems/shortest-unsorted-continuous-subarray/)
 > 4. [Heaters (LC-475 / Medium)](https://leetcode.com/problems/heaters/)
 > 5. [Merge k Sorted Lists (LC-23 / Hard)](https://leetcode.com/problems/merge-k-sorted-lists)
+> 6. [Minimum Lines to Represent a Line Chart (LC-2280 / Medium)](https://leetcode.com/problems/minimum-lines-to-represent-a-line-chart/)
 
 ## 2. Backtrack
 Backtrack is used to solve the permutation problem. Need to consider the duplicateds in the output, such as Subsets II (LC 90). Backtrack is actually a kind of bruce-force algorithm and it is usually in the form of iteration + recursion. So timeout complexity is high. We need to be careful on the performance.
@@ -454,6 +455,7 @@ Binary search has the time complexity of O(logN). It requires the array to be so
 > 3. [Longest Subarray of 1's After Deleting One Element (LC-1493 / Medium)](https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element)
 > 4. [Longest Substring with At Least K Repeating Characters (LC-395 / Medium)](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters)
 > 5. [Longest Increasing Subsequence (LC-300 / Medium)](https://leetcode.com/problems/longest-increasing-subsequence/)
+> 6. [Longest Consecutive Sequence (LC-128 / Medium)](https://leetcode.com/problems/longest-consecutive-sequence)
 
 ## 8. Prefix Sum
 Sum subarray from 0 to position i
