@@ -445,6 +445,7 @@ Binary search has the time complexity of O(logN). It requires the array to be so
 > 20. [Maximum Length of Subarray With Positive Product (LC-1567 / Medium)](https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product)
 > 21. [Minimum Operations to Reduce X to Zero (LC-1658 / Medium)](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero)
 > 22. [Shortest Unsorted Continuous Subarray (LC-581 / Medium)](https://leetcode.com/problems/shortest-unsorted-continuous-subarray)
+> 23. [Count Number of Nice Subarrays (LC-1248 / Medium)](https://leetcode.com/problems/count-number-of-nice-subarrays)
 
 ## 7. Sequence
 > Quiz
@@ -459,6 +460,8 @@ Sum subarray from 0 to position i
 > Quiz
 > 1. [Continuous Subarray Sum (LC-523 / Medium)](https://leetcode.com/problems/continuous-subarray-sum)
 > 2. [Subarray Sum Equals K (LC-560 / Medium)](https://leetcode.com/problems/subarray-sum-equals-k)
+> 3. [Shortest Subarray with Sum at Least K (LC-862 / Hard)](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k)
+> 4. [Binary Subarrays With Sum (LC-930 / Medium)](https://leetcode.com/problems/binary-subarrays-with-sum)
 
 ## 9. Interval
 Interval is an array of tuples int[n][2] and the questions include
@@ -471,6 +474,7 @@ Interval is an array of tuples int[n][2] and the questions include
 > 3. [Non-overlapping Intervals (LC-435 / Medium)](https://leetcode.com/problems/non-overlapping-intervals/)
 > 4. [Find Right Interval (LC-436 / Medium)](https://leetcode.com/problems/find-right-interval/)
 > 5. [Interval List Intersections (LC-986 / Medium)](https://leetcode.com/problems/interval-list-intersections)
+> 6. [Divide Intervals Into Minimum Number of Groups (LC-2406 / Medium)](https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups)
 
 ## Calculator
 > Quiz
@@ -595,6 +599,7 @@ The most importance thing in DP is to find the state transit formula.
 > 32. [Longest Arithmetic Subsequence (LC-1027 / Medium)](https://leetcode.com/problems/longest-arithmetic-subsequence)
 > 33. [Number of Longest Increasing Subsequence (LC-673 / Medium)](https://leetcode.com/problems/number-of-longest-increasing-subsequence/)
 > 34. [Length of Longest Fibonacci Subsequence (LC-873 / Medium)](https://leetcode.com/problems/length-of-longest-fibonacci-subsequence)
+> 35. [Number of Subarrays with Bounded Maximum (LC-795 / Medium)](https://leetcode.com/problems/number-of-subarrays-with-bounded-maximum)
 
 ## 11. Greedy
 To use greedy algorithm, we have the assumption that local optimal choice will lead to global optimal solution. But it is not always this case

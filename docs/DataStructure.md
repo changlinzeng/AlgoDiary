@@ -34,6 +34,7 @@ Besides traditional pattern match, there are other ways of compare two string th
 > 7. [Find All Anagrams in a String (LC-438 / Medium)](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 > 8. [Swap For Longest Repeated Character Substring (LC-1156 / Medium)](https://leetcode.com/problems/swap-for-longest-repeated-character-substring)
 > 9. [Minimum Deletions to Make String Balanced (LC-1653 / Medium)](https://leetcode.com/problems/minimum-deletions-to-make-string-balanced)
+> 10. [Decoded String at Index (LC-880 / Medium)](https://leetcode.com/problems/decoded-string-at-index)
 
 
 ## 3. Matrix
@@ -239,6 +240,7 @@ Time complexity is O(|V| + |E|). Space complexity is O(|V|)
 > 23. [Find Bottom Left Tree Value (LC-513 / Medium)](https://leetcode.com/problems/find-bottom-left-tree-value/)
 > 24. [Find Duplicate Subtrees (LC-652 / Medium)](https://leetcode.com/problems/find-duplicate-subtrees)
 > 25. [Longest Univalue Path (LC-687 / Medium)](https://leetcode.com/problems/longest-univalue-path/)
+> 26. [Closest Nodes Queries in a Binary Search Tree (LC-2476 / Medium)](https://leetcode.com/problems/closest-nodes-queries-in-a-binary-search-tree)
 
 ## 9. Trie
 Trie can be used to solve pattern match prblems, such as **Longest Common Prefix**.
