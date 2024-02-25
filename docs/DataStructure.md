@@ -180,12 +180,15 @@ Time complexity is O(|V| + |E|). Space complexity is O(|V|)
   }
 ```
 
+#### Topological Sort
+> Quiz
+> 1. [All Ancestors of a Node in a Directed Acyclic Graph (LC-2192 / Medium)](https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/)
+
 > Quiz
 > 1. [Course Schedule II (LC-210 / Medium)](https://leetcode.com/problems/course-schedule-ii/)
 > 2. [Course Schedule IV (LC-1462 / Medium)](https://leetcode.com/problems/course-schedule-iv/)
 > 3. [Network Delay Time (LC-743 / Medium)](https://leetcode.com/problems/network-delay-time/)
 > 4. [Cheapest Flights Within K Stops (LC-787 / Medium)](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
-
 
 ## 8. Binary Tree
 #### - BST
@@ -241,6 +244,7 @@ Time complexity is O(|V| + |E|). Space complexity is O(|V|)
 > 24. [Find Duplicate Subtrees (LC-652 / Medium)](https://leetcode.com/problems/find-duplicate-subtrees)
 > 25. [Longest Univalue Path (LC-687 / Medium)](https://leetcode.com/problems/longest-univalue-path/)
 > 26. [Closest Nodes Queries in a Binary Search Tree (LC-2476 / Medium)](https://leetcode.com/problems/closest-nodes-queries-in-a-binary-search-tree)
+> 27. [Minimum Height Trees (LC-310 / Medium)](https://leetcode.com/problems/minimum-height-trees)
 
 ## 9. Trie
 Trie can be used to solve pattern match prblems, such as **Longest Common Prefix**.
@@ -309,6 +313,7 @@ Trie can be used to solve pattern match prblems, such as **Longest Common Prefix
 ```
 > Quiz
 > 1. [Design Add and Search Words Data Structure (LC-211 / Medium)](https://leetcode.com/problems/design-add-and-search-words-data-structure)
+> 2. [Short Encoding of Words (LC-820 / Medium)](https://leetcode.com/problems/short-encoding-of-words/)
 
 ### Suffix Tree
 Suffix tree or suffix array can be used to solve pattern match problems, e.g. check if a pattern exists in target string.
@@ -347,9 +352,10 @@ Union Find is usually used for grouping.
 > 14. [Design Circular Queue (LC-622 / Medium)](https://leetcode.com/problems/design-circular-queue)
 > 15. [Map Sum Pairs (LC-677 / Medium)](https://leetcode.com/problems/map-sum-pairs)
 > 16. [My Calendar I (LC-729 / Medium)](https://leetcode.com/problems/my-calendar-i)
-> 17. [Maximum Frequency Stack (LC-895 / Hard)](https://leetcode.com/problems/maximum-frequency-stack)
-> 18. [Time Based Key-Value Store (LC-981 / Medium)](https://leetcode.com/problems/time-based-key-value-store)
-> 19. [Dinner Plate Stacks (LC-1172 / Hard)](https://leetcode.com/problems/dinner-plate-stacks)
-> 20. [Design Skiplist (LC-1206 / Hard)](https://leetcode.com/problems/design-skiplist)
-> 21. [Design a Stack With Increment Operation (LC-1381 / Medium)](https://leetcode.com/problems/design-a-stack-with-increment-operation)
-> 22. [Frequency Tracker (LC-2671 / Medium)](https://leetcode.com/problems/frequency-tracker)
+> 17. [My Calendar II (LC-731 / Medium)](https://leetcode.com/problems/my-calendar-ii)
+> 18. [Maximum Frequency Stack (LC-895 / Hard)](https://leetcode.com/problems/maximum-frequency-stack)
+> 19. [Time Based Key-Value Store (LC-981 / Medium)](https://leetcode.com/problems/time-based-key-value-store)
+> 20. [Dinner Plate Stacks (LC-1172 / Hard)](https://leetcode.com/problems/dinner-plate-stacks)
+> 21. [Design Skiplist (LC-1206 / Hard)](https://leetcode.com/problems/design-skiplist)
+> 22. [Design a Stack With Increment Operation (LC-1381 / Medium)](https://leetcode.com/problems/design-a-stack-with-increment-operation)
+> 23. [Frequency Tracker (LC-2671 / Medium)](https://leetcode.com/problems/frequency-tracker)

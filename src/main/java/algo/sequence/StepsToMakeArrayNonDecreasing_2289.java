@@ -1,4 +1,4 @@
-package data.array;
+package algo.sequence;
 
 import java.util.ArrayList;
 import java.util.Arrays;

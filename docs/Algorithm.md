@@ -122,6 +122,7 @@ DFS can be used in tree, graph, array, string and other data structures to solve
 > 17. [Number of Enclaves (LC-1020 / Medium)](https://leetcode.com/problems/number-of-enclaves/)
 > 18. [Word Break II (LC-140 / Hard)](https://leetcode.com/problems/word-break-ii)
 > 19. [Making A Large Island (LC-827 / Hard)](https://leetcode.com/problems/making-a-large-island)
+> 20. [Maximum Non Negative Product in a Matrix (LC-1594 / Medium)](https://leetcode.com/problems/maximum-non-negative-product-in-a-matrix)
 
 There is a kind of problems that can be solved with DFS on strings, such as
 > 1. [Decode String (LC-394 / Medium)](https://leetcode.com/problems/decode-string/)
@@ -456,6 +457,8 @@ Binary search has the time complexity of O(logN). It requires the array to be so
 > 4. [Longest Substring with At Least K Repeating Characters (LC-395 / Medium)](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters)
 > 5. [Longest Increasing Subsequence (LC-300 / Medium)](https://leetcode.com/problems/longest-increasing-subsequence/)
 > 6. [Longest Consecutive Sequence (LC-128 / Medium)](https://leetcode.com/problems/longest-consecutive-sequence)
+> 7. [Shortest Subarray to be Removed to Make Array Sorted (LC-1574 / Medium)](https://leetcode.com/problems/shortest-subarray-to-be-removed-to-make-array-sorted)
+> 8. [Non-decreasing Array (LC-665 / Medium)](https://leetcode.com/problems/non-decreasing-array)
 
 ## 8. Prefix Sum
 Sum subarray from 0 to position i
@@ -464,6 +467,7 @@ Sum subarray from 0 to position i
 > 2. [Subarray Sum Equals K (LC-560 / Medium)](https://leetcode.com/problems/subarray-sum-equals-k)
 > 3. [Shortest Subarray with Sum at Least K (LC-862 / Hard)](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k)
 > 4. [Binary Subarrays With Sum (LC-930 / Medium)](https://leetcode.com/problems/binary-subarrays-with-sum)
+> 5. [Maximum Sum of Two Non-Overlapping Subarrays (LC-1031 / Medium)](https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays)
 
 ## 9. Interval
 Interval is an array of tuples int[n][2] and the questions include
@@ -477,6 +481,9 @@ Interval is an array of tuples int[n][2] and the questions include
 > 4. [Find Right Interval (LC-436 / Medium)](https://leetcode.com/problems/find-right-interval/)
 > 5. [Interval List Intersections (LC-986 / Medium)](https://leetcode.com/problems/interval-list-intersections)
 > 6. [Divide Intervals Into Minimum Number of Groups (LC-2406 / Medium)](https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups)
+> 7. [My Calendar I (LC-729 / Medium)](https://leetcode.com/problems/my-calendar-i)
+> 8. [My Calendar II (LC-731 / Medium)](https://leetcode.com/problems/my-calendar-ii)
+> 9. [Car Pooling (LC-1094 / Medium)](https://leetcode.com/problems/car-pooling)
 
 ## Calculator
 > Quiz
@@ -602,6 +609,8 @@ The most importance thing in DP is to find the state transit formula.
 > 33. [Number of Longest Increasing Subsequence (LC-673 / Medium)](https://leetcode.com/problems/number-of-longest-increasing-subsequence/)
 > 34. [Length of Longest Fibonacci Subsequence (LC-873 / Medium)](https://leetcode.com/problems/length-of-longest-fibonacci-subsequence)
 > 35. [Number of Subarrays with Bounded Maximum (LC-795 / Medium)](https://leetcode.com/problems/number-of-subarrays-with-bounded-maximum)
+> 36. [Largest Divisible Subset (LC-368 / Medium)](https://leetcode.com/problems/largest-divisible-subset/)
+> 37. [Longest Non-decreasing Subarray From Two Arrays (LC-2771 / Medium)](https://leetcode.com/problems/longest-non-decreasing-subarray-from-two-arrays)
 
 ## 11. Greedy
 To use greedy algorithm, we have the assumption that local optimal choice will lead to global optimal solution. But it is not always this case
