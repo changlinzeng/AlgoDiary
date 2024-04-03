@@ -1,7 +1,6 @@
 package algo.prefixSum;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 
 public class ShortestSubarrayWithSumAtLeastK_862 {
   public static int shortestSubarray(int[] nums, int k) {

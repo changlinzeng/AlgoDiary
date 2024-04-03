@@ -1,36 +1,33 @@
 package algo.interval;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class FindRightInterval_436 {
   public static int[] findRightInterval(int[][] intervals) {
-    var size= intervals.length;
-    var intervalList = new ArrayList<int[]>();
-    for (var i = 0; i < size; i++) {
-      intervalList.add(new int[]{intervals[i][0], intervals[i][1], i});
+    var len = intervals.length;
+    var startPosition = new HashMap<Integer, Integer>();
+
+    // record position of each interval start
+    var maxStart = 0;
+    for (var i = 0; i < len; i++) {
+      startPosition.put(intervals[i][0], i);
+      maxStart = Math.max(maxStart, intervals[i][0]);
     }
 
-    // sort with interval start
-    intervalList.sort(Comparator.comparingInt(i -> i[0]));
-
-    var right = new ArrayList<int[]>();
-    for (var i = 0; i < size; i++) {
-      var cur = intervalList.get(i);
-      var j = i;
-      while(j < size && intervalList.get(j)[0] < cur[1]) {
-        j++;
+    var result = new int[len];
+    Arrays.fill(result, -1);
+    for (var i = 0; i < len; i++) {
+      var interval = intervals[i];
+      // find the smallest start
+      for (var j = interval[1]; j <= maxStart; j++) {
+        if (startPosition.containsKey(j)) {
+          result[i] = startPosition.get(j);
+          break;
+        }
       }
-      var next = j < size ? intervalList.get(j)[2] : -1;
-      right.add(new int[]{cur[2], next});
     }
-
-    right.sort(Comparator.comparingInt(i -> i[0]));
-    var result = new int[size];
-    for (int i = 0; i < size; i++) {
-      result[i] = right.get(i)[1];
-    }
-
     return result;
   }
 

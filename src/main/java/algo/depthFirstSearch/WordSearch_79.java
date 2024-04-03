@@ -1,4 +1,4 @@
-package algo.backtrack;
+package algo.depthFirstSearch;
 
 public class WordSearch_79 {
     public static boolean exist(char[][] board, String word) {

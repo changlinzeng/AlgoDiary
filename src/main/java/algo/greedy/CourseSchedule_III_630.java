@@ -27,7 +27,6 @@ public class CourseSchedule_III_630 {
           // remove the job with longest duration and add current one
           var duration = pq.poll();
           start -= duration;
-          start += cs[0];
           pq.offer(cs[0]);
         } else {
           // revert

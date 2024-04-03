@@ -1,45 +1,33 @@
 package algo.depthFirstSearch;
 
-public class NumbereOfWaysToReachAPositionAfterExactlyKSteps_2400 {
-    private static long steps = 0L;
-    private static long moreSteps = 0L;
-    private static final long mod = (long) Math.pow(10, 9) + 7;
-    public static int numberOfWays(int startPos, int endPos, int k) {
-        if (startPos > endPos) {
-            var tmp = startPos;
-            startPos = endPos;
-            endPos = tmp;
-        }
-        var distance = endPos - startPos;
-        if (distance > k) {
-            return 0;
-        }
-        if (distance == k) {
-            return 1;
-        }
-        var more = k - distance;
-        if (more % 2 != 0){
-            return 0;
-        }
+import java.util.Arrays;
 
-        dfs(more / 2, more / 2);
-        steps = 1;
-        for (var i = 0; i < endPos - startPos; i++) {
-            steps = (steps + 1 + moreSteps) % mod;
+public class NumbereOfWaysToReachAPositionAfterExactlyKSteps_2400 {
+    private static int offset = 1000;
+    private static final int mod = 1_000_000_007;
+    public static int numberOfWays(int startPos, int endPos, int k) {
+        var dp = new int[k + 1][3000];
+        for (var arr : dp) {
+            Arrays.fill(arr, -1);
         }
-        return (int)steps;
+        return dfs(startPos, endPos, k, dp);
     }
 
-    private static void dfs(int leftSteps, int rightSteps) {
-        if (leftSteps == 0 && rightSteps == 0) {
-            moreSteps = (moreSteps + 1) % mod;
+    private static int dfs(int currentPos, int endPos, int k, int[][] dp) {
+        if (k == endPos - currentPos) {
+            return 1;
         }
-        if (leftSteps > 0) {
-            dfs(leftSteps - 1, rightSteps);
+        if (k == 0) {
+            return currentPos == endPos ? 1 : 0;
         }
-        if (rightSteps > 0) {
-            dfs(leftSteps, rightSteps - 1);
+        if (dp[k][currentPos + offset] != -1) {
+            return dp[k][currentPos + offset];
         }
+        var s1 = dfs(currentPos + 1, endPos, k - 1, dp);
+        var s2 = dfs(currentPos - 1, endPos, k - 1, dp);
+        var sum = (s1 + s2) % mod;
+        dp[k][currentPos + offset] = sum;
+        return sum;
     }
 
     public static void main(String[] args) {

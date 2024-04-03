@@ -1,4 +1,4 @@
-package algo.breadthFirstSearch;
+package algo.depthFirstSearch;
 
 import java.util.HashSet;
 import java.util.List;

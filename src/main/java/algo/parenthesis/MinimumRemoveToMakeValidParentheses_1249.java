@@ -4,39 +4,32 @@ import java.util.Stack;
 
 public class MinimumRemoveToMakeValidParentheses_1249 {
   public static String minRemoveToMakeValid(String s) {
+    var len = s.length();
+    var leftCount = 0;
     var stack = new Stack<String>();
-    var valid = "";
-    for (var c : s.toCharArray()) {
+    for (var i = 0; i < len; i++) {
+      var c = s.charAt(i);
       if (c >= 'a' && c <= 'z') {
-        if (!stack.isEmpty()) {
-          stack.push(c + "");
-        } else {
-          valid += c;
-        }
+        stack.push(c + "");
       } else if (c == '(') {
+        leftCount++;
         stack.push("(");
-      } else if (c == ')' && !stack.isEmpty()) {
-        var str = ")";
-        while (!stack.isEmpty()) {
-          var e = stack.pop();
-          str = e + str;
-          if (e.equals("(")) {
-            break;
+      } else if (c == ')') {
+        if (leftCount > 0) {
+          leftCount--;
+          var str = ")";
+          while (!stack.isEmpty()) {
+            var e = stack.pop();
+            str = e + str;
+            if ("(".equals(e)) {
+              break;
+            }
           }
-        }
-        if (stack.isEmpty()) {
-          valid += str;
-        } else {
           stack.push(str);
         }
       }
     }
-    for (var e : stack) {
-      if (!e.equals("(")) {
-        valid += e;
-      }
-    }
-    return valid;
+    return stack.stream().filter(a -> !a.equals("(")).reduce("", String::concat);
   }
 
   public static void main(String[] args) {

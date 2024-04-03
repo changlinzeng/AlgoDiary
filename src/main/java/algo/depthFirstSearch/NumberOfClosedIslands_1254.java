@@ -21,10 +21,7 @@ public class NumberOfClosedIslands_1254 {
 
         visited[row][col] = true;
 
-        var reachBorder = false;
-        if (row == 0 || row == grid.length - 1 || col == 0 || col == grid[0].length - 1) {
-            reachBorder = true;
-        }
+        var reachBorder = row == 0 || row == grid.length - 1 || col == 0 || col == grid[0].length - 1;
 
         int num1 = 0, num2 = 0, num3 = 0, num4 = 0;
         if (row > 0) {
