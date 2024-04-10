@@ -4,51 +4,36 @@ import java.util.HashMap;
 
 public class ReplaceTheSubstringForBalancedString_1234 {
   public static int balancedString(String s) {
-    int len = s.length(), k = s.length() / 4;
-    // frequency
-    var freq = new HashMap<Character, Integer>(){
-      {
-        put('Q', 0);
-        put('W', 0);
-        put('E', 0);
-        put('R', 0);
-      }
-    };
-
-    for (int i = 0; i < s.length(); i++) {
-      freq.put(s.charAt(i), freq.getOrDefault(s.charAt(i), 0) + 1);
+    // Find the shortest window so that when we remove the window from the string, the count of all
+    // chars are less than total / 4
+    var limit = s.length() / 4;
+    var count = new HashMap<Character, Integer>();
+    for (var i = 0; i < s.length(); i++) {
+      count.put(s.charAt(i), count.getOrDefault(s.charAt(i), 0) + 1);
     }
-
-    if (freq.get('Q') == k && freq.get('W') == k && freq.get('E') == k && freq.get('R') == k) {
+    if (count.size() == 4 && count.values().stream().allMatch(v -> v >= limit)) {
       return 0;
     }
 
-    int min = Integer.MAX_VALUE;
     int left = 0, right = 0;
-    while (right <= len) {
-      while (right < len && freq.get('Q') > k || freq.get('W') > k || freq.get('E') > k || freq.get('R') > k) {
-        // consume extra chars
-        freq.put(s.charAt(right), freq.get(s.charAt(right)) - 1);
-        right++;
-      }
-      for (;;) {
-        var c = s.charAt(left);
-        if (freq.get(c) + 1 > k) {
-          break;
+    var minLen = Integer.MAX_VALUE;
+    while (right < s.length()) {
+      count.put(s.charAt(right), count.get(s.charAt(right)) - 1);
+      if (count.values().stream().allMatch(v -> v <= limit)) {
+        minLen = Math.min(minLen, right - left + 1);
+        while (left < right) {
+          minLen = Math.min(minLen, right - left + 1);
+          count.put(s.charAt(left), count.get(s.charAt(left)) + 1);
+          left++;
+          if (count.values().stream().anyMatch(v -> v > limit)) {
+            break;
+          }
         }
-        freq.put(c, freq.get(c) + 1);
-        left++;
-      }
-
-      min = Math.min(min, right - left);
-
-      if (right < len) {
-        freq.put(s.charAt(right), freq.get(s.charAt(right)) - 1);
       }
       right++;
     }
 
-    return min;
+    return minLen;
   }
 
   public static void main(String[] args) {

@@ -44,7 +44,7 @@ public class RankTeamsByVotes_1366 {
     }
 
     public static void main(String[] args) {
-//        System.out.println(rankTeams(new String[]{"WXYZ", "XYZW"}));
+        System.out.println(rankTeams(new String[]{"WXYZ", "XYZW"}));
         System.out.println(rankTeams(new String[]{"ABC","ACB","ABC","ACB","ACB"}));
     }
 }

@@ -1,9 +1,6 @@
 package algo.sort;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class RearrangeStringKDistanceApart_358 {
   public static String rearrangeString(String str, int k) {

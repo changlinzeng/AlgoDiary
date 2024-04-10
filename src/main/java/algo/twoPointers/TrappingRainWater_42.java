@@ -1,7 +1,7 @@
 package algo.twoPointers;
 
 public class TrappingRainWater_42 {
-  public static int trap(int[] height) {
+  public static int trap2(int[] height) {
     int left = 0, right = 0, len = height.length;
     var sum = 0;
     while (left < len) {
@@ -45,7 +45,7 @@ public class TrappingRainWater_42 {
   /**
    * Find the max value after each position i and then calculate for each element from i to max
    */
-  public static int trap2(int[] height) {
+  public static int trap(int[] height) {
     var len = height.length;
     var position = new int[len]; // the position of the max value after i
     var max = len - 1;

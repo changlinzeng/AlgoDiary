@@ -3,7 +3,7 @@ package algo.sort;
 import java.util.Arrays;
 
 public class AppendKIntegersWithMinimalSum_2195 {
-    public static long minimalKSum(int[] nums, int k) {
+    public static long minimalKSum2(int[] nums, int k) {
         Arrays.sort(nums);
 
         var len = nums.length;
@@ -24,6 +24,33 @@ public class AppendKIntegersWithMinimalSum_2195 {
             }
         }
 
+        return sum;
+    }
+
+    public static long minimalKSum(int[] nums, int k) {
+        Arrays.sort(nums);
+        var count = k;  // numbers to consume
+        long sum = 0;
+        for (var i = 0; i < nums.length; i++) {
+            var numsToConsume = i == 0 ? nums[i] - 1 : nums[i] - nums[i - 1] - 1;
+            long start = i == 0 ? 1 : nums[i - 1] + 1;
+            long end = nums[i] - 1;
+            if (numsToConsume <= 0) {
+                continue;
+            }
+            count -= numsToConsume;
+            if (count < 0) {
+                count += numsToConsume;
+                end = i == 0 ? k : nums[i - 1] + count;
+                count = 0;
+            }
+            sum += (start + end) * (end - start + 1) / 2;
+        }
+
+        for (var j = 1; j <= count; j++) {
+            sum += nums[nums.length - 1] + j;
+
+        }
         return sum;
     }
 

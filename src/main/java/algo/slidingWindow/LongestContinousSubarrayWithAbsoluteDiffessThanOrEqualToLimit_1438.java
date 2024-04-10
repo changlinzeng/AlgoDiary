@@ -59,6 +59,33 @@ public class LongestContinousSubarrayWithAbsoluteDiffessThanOrEqualToLimit_1438 
     return maxlen;
   }
 
+  public static int longestSubarray2(int[] nums, int limit) {
+    // the diff of the smallest and biggest number in the window less than limit
+    int len = nums.length;
+    int maxlen = 0, min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+    int left = 0, right = 0;
+    while (right < len) {
+      min = Math.min(min, nums[right]);
+      max = Math.max(max, nums[right]);
+      var diff = max - min;
+      if (diff <= limit) {
+        maxlen = Math.max(maxlen, right - left + 1);
+      } else {
+        // find left boundary backward
+        min = nums[right];
+        max = nums[right];
+        left = right;
+        while (left > 0 && Math.abs(nums[left - 1] - nums[right]) <= limit) {
+          left--;
+          min = Math.min(min, nums[left]);
+          max = Math.max(max, nums[left]);
+        }
+      }
+      right++;
+    }
+    return maxlen;
+  }
+
   public static void main(String[] args) {
     System.out.println(longestSubarray(new int[]{8,2,4,7}, 4));
     System.out.println(longestSubarray(new int[]{10,1,2,4,7,2}, 5));

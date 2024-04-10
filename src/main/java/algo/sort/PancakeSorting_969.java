@@ -12,10 +12,8 @@ public class PancakeSorting_969 {
         for (var i = len - 1; i > 0; i--) {
             for (var j = 0; j < i; j++) {
                 if (arr[j] == max) {
-                    if (j != 0) {
-                        reverse(arr, j);
-                        result.add(j + 1);
-                    }
+                    reverse(arr, j);
+                    result.add(j + 1);
                     reverse(arr, i);
                     result.add(i + 1);
                     break;

@@ -2,41 +2,32 @@ package algo.twoPointers;
 
 public class LongestMountainInArray_845 {
   public static int longestMountain(int[] arr) {
-    int len = arr.length;
-    int longest = 0;
-
-    int start = -1, peak = -1;
-    for (var i = 1; i < len; i++) {
-      if (arr[i] > arr[i - 1] && start == -1) {
-        start = i - 1;
-        peak = -1;
-      }
-      if (arr[i] == arr[i - 1]) {
-        if (start != -1 && peak != -1) {
-          longest = Math.max(longest, i - start);
+    var start = 0;
+    var maxLen = 0;
+    while (start < arr.length - 1) {
+      if (arr[start] < arr[start + 1]) {
+        // try to find mountain
+        var end = start;
+        while (end < arr.length - 1 && arr[end] < arr[end + 1]) {
+          end++;
         }
-        start = -1;
-        peak = -1;
-      }
-      if (arr[i] < arr[i - 1] && peak == -1 && start != -1) {
-        peak = i - 1;
-      }
-      if (start != -1 && peak != -1) {
-        if (arr[i] >= arr[i - 1]) {
-          longest = Math.max(longest, i - start);
-          start = i - 1;
-          peak = -1;
-        } else {
-          if (i == len - 1) {
-            longest = Math.max(longest, len - start);
-            start = -1;
-            peak = -1;
-          }
+        if (end == arr.length - 1) {
+          break;
         }
+        if (arr[end] == arr[end + 1]) {
+          start = end + 1;
+          continue;
+        }
+        while (end < arr.length - 1 && arr[end] > arr[end + 1]) {
+          end++;
+        }
+        maxLen = Math.max(maxLen, end - start + 1);
+        start = end;
+      } else {
+        start++;
       }
     }
-
-    return longest;
+    return maxLen;
   }
 
   public static int longestMountain_2(int[] arr) {

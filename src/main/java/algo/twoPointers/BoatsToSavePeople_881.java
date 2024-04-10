@@ -9,23 +9,19 @@ public class BoatsToSavePeople_881 {
     Arrays.sort(people);
 
     int start = 0, end = len - 1;
-    while (start < len && end >= 0 && start <= end) {
-      var sum = 0;
-      var numPeople = 0;
-      while (numPeople < 2 && end >= 0 && sum + people[end] <= limit) {
-        numPeople++;
-        sum += people[end];
+    while (start <= end) {
+      if (start == end) {
+        boats++;
+        break;
+      }
+      if (people[start] + people[end] <= limit) {
+        boats++;
+        start++;
+        end--;
+      } else {
+        boats++;
         end--;
       }
-      while (numPeople < 2 && start < end && sum + people[start] <= limit) {
-        numPeople++;
-        sum += people[start];
-        start++;
-      }
-
-      boats++;
-      sum = 0;
-      numPeople = 0;
     }
 
     return boats;

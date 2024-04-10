@@ -2,32 +2,29 @@ package algo.twoPointers;
 
 public class RemoveDuplicatesFromSortedArray_II_80 {
   public static int removeDuplicates(int[] nums) {
-    var len = nums.length;
-    var newLen = len;
-    int i = 0, j = 1;
-
-    while (i < newLen) {
-      // find duplicates from i to j (exclusive)
-      while (j < newLen && nums[j] == nums[i]) {
-        j++;
-      }
-
-      var dup = j - i;
-      if (dup > 2) {
-        var removal = dup - 2;
-        // shift right by removal
-        for (var m = i + 2; m + removal < len; m++) {
-          nums[m] = nums[m + removal];
+    var maxDuplicates = 2;
+    var end = 0;
+    var count = 1;
+    for (var i = 1; i <= nums.length; i++) {
+      if (i == nums.length) {
+        var repeats = Math.min(maxDuplicates, count);
+        for (var k = 0; k < repeats; k++) {
+          nums[end++] = nums[i - 1];
         }
-        newLen -= removal;
-        i += 2;
-        j = i + 1;
+        break;
+      }
+      if (nums[i] == nums[i - 1]) {
+        count++;
       } else {
-        i = j;
+        // write elements to the end
+        var repeats = Math.min(maxDuplicates, count);
+        for (var k = 0; k < repeats; k++) {
+          nums[end++] = nums[i - 1];
+        }
+        count = 1;
       }
     }
-
-    return newLen;
+    return end;
   }
 
   public static void main(String[] args) {

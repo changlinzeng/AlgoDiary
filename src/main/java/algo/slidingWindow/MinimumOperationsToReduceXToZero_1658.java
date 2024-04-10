@@ -1,30 +1,31 @@
 package algo.slidingWindow;
 
+import java.util.Arrays;
+
 public class MinimumOperationsToReduceXToZero_1658 {
   public static int minOperations(int[] nums, int x) {
     // we can think this as the longest subarray with given sum
-    int targetSum = 0;
-    for (var num : nums) {
-      targetSum += num;
-    }
-    targetSum -= x;
+    int targetSum = Arrays.stream(nums).sum() - x;
 
     int maxlen = -1;
     int left = 0, right = 0;
     int sum = 0;
-    while (right <= nums.length) {
-      if (sum > targetSum) {
+    if (targetSum == 0) {
+      return nums.length;
+    }
+    while (right < nums.length) {
+      sum += nums[right];
+      if (sum == targetSum) {
+        maxlen = Math.max(maxlen, right - left + 1);
+      } else if (sum > targetSum) {
         // move left
         while (left < right && sum > targetSum) {
           sum -= nums[left];
           left++;
         }
-      }
-      if (sum == targetSum) {
-        maxlen = Math.max(maxlen, right - left);
-      }
-      if (right < nums.length) {
-        sum += nums[right];
+        if (sum == targetSum) {
+          maxlen = Math.max(maxlen, right - left + 1);
+        }
       }
       right++;
     }

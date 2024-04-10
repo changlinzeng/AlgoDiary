@@ -15,10 +15,10 @@ public class GetEqualSubstringsWithinBudget_1208 {
           cost -= Math.abs(s.charAt(left) - t.charAt(left));
           left++;
         }
-      }
-      if (left == right && cost > maxCost) {
-        cost -= Math.abs(s.charAt(left) - t.charAt(left));
-        left++;
+        if (left == right && cost > maxCost) {
+          cost -= Math.abs(s.charAt(left) - t.charAt(left));
+          left++;
+        }
       }
       right++;
     }

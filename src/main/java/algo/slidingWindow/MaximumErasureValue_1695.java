@@ -4,24 +4,23 @@ import java.util.HashSet;
 
 public class MaximumErasureValue_1695 {
   public static int maximumUniqueSubarray(int[] nums) {
-    var freq = new HashSet<Integer>();
+    var count = new HashSet<Integer>();
     int sum = 0, max = 0;
     int left = 0, right = 0;
     while (right < nums.length) {
       var n = nums[right];
-      if (freq.contains(n)) {
-        // remove numbers from the subarray
-        while (left < right && freq.contains(n)) {
-          freq.remove(nums[left]);
+      if (count.add(n)) {
+        sum += n;
+        max = Math.max(max, sum);
+      } else {
+        while (left < right && nums[left] != nums[right]) {
+          count.remove(nums[left]);
           sum -= nums[left];
           left++;
         }
-      } else {
-        freq.add(n);
-        sum += n;
-        max = Math.max(max, sum);
-        right++;
+        left++;
       }
+      right++;
     }
 
     return max;

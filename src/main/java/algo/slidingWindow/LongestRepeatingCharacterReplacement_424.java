@@ -1,7 +1,5 @@
 package algo.slidingWindow;
 
-import java.util.PriorityQueue;
-
 public class LongestRepeatingCharacterReplacement_424 {
   public static int characterReplacement(String s, int k) {
     var freq = new int[26];

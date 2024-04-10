@@ -7,23 +7,19 @@ public class MaxConsecutiveOnes_III_1004 {
     int left = 0, right = 0;
     int maxlen = 0;
     int zeroCount = 0;
-
     while (right < len) {
       if (nums[right] == 0) {
         zeroCount++;
       }
-      if (zeroCount > k) {
+      if (zeroCount <= k) {
+        maxlen = Math.max(maxlen, right - left + 1);
+      } else {
         while (left < right && zeroCount > k) {
           if (nums[left] == 0) {
             zeroCount--;
           }
           left++;
         }
-      }
-      if (k == 0 && left == right && nums[right] == 0) {
-        // do nothing
-      } else {
-        maxlen = Math.max(maxlen, right - left + 1);
       }
       right++;
     }
