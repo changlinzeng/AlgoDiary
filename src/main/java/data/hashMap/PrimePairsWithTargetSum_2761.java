@@ -19,7 +19,7 @@ public class PrimePairsWithTargetSum_2761 {
                     complement.put(i, n - i);
                 } else if (i > n / 2) {
                     if (complement.containsKey(n - i)) {
-                        pairs.add(0, List.of(n - i, i));
+                        pairs.addFirst(List.of(n - i, i));
                     }
                 }
             }
@@ -43,12 +43,12 @@ public class PrimePairsWithTargetSum_2761 {
     }
 
     public static void main(String[] args) {
-//        findPrimePairs(10).forEach(System.out::println);
-//        findPrimePairs(2).forEach(System.out::println);
-//        findPrimePairs(4).forEach(System.out::println);
-//        findPrimePairs(5).forEach(System.out::println);
-//        findPrimePairs(6).forEach(System.out::println);
-//        findPrimePairs(999763).forEach(System.out::println);
+        findPrimePairs(10).forEach(System.out::println);
+        findPrimePairs(2).forEach(System.out::println);
+        findPrimePairs(4).forEach(System.out::println);
+        findPrimePairs(5).forEach(System.out::println);
+        findPrimePairs(6).forEach(System.out::println);
+        findPrimePairs(999763).forEach(System.out::println);
         findPrimePairs(999162).forEach(System.out::println);
     }
 }

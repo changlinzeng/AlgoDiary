@@ -1,4 +1,4 @@
-package algo.xxx;
+package data.matrix;
 
 public class MaximalRectangle_85 {
   public static int maximalRectangle(char[][] matrix) {

@@ -1,4 +1,4 @@
-package algo.xxx;
+package algo.recursion;
 
 import java.util.ArrayList;
 import java.util.List;

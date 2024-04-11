@@ -1,4 +1,4 @@
-package data.util.hashMap
+package data.structure.hashMap
 
 class KtFindOriginalArrayFromDoubledArray_2007 {
     fun findOriginalArray(changed: IntArray): IntArray {
