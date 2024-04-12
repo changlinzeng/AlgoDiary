@@ -1,32 +1,24 @@
 package data.stack;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class SimplifyPath_71 {
   public static String simplifyPath(String path) {
-    var elements = path.split("/");
     var stack = new Stack<String>();
-
-    for (String e : elements) {
-      if (!"".equals(e) && !".".equals(e)) {
-        if (e.equals("..") && !stack.isEmpty()) {
-          stack.pop();
+    Arrays.stream(path.split("/")).filter(a -> !a.isBlank()).forEach(p -> {
+      switch (p) {
+        case ".." -> {
+          if (!stack.isEmpty()) {
+            stack.pop();
+          }
         }
-        if (!"..".equals(e)) {
-          stack.push(e);
-        }
+        case "." -> {}
+        default -> stack.push(p);
       }
-    }
+    });
 
-    var canonical = "";
-    while (!stack.isEmpty()) {
-      canonical += "/" + stack.remove(0);
-    }
-    if ("".equals(canonical)) {
-      canonical = "/";
-    }
-
-    return canonical;
+    return "/" + String.join("/", stack);
   }
 
   public static void main(String[] args) {

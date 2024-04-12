@@ -1,5 +1,6 @@
 package data.stack;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class NextGreaterElement_II_503 {
@@ -8,16 +9,13 @@ public class NextGreaterElement_II_503 {
     var result = new int[len];
     var stack = new Stack<Integer>();  // store the index of the element in the array
 
-    for (int i = 0; i < len; i++) {
-      result[i] = -1;
-    }
+    Arrays.fill(result, -1);
 
-    for (int i = 0; i < len * 3; i++) {
+    for (int i = 0; i < len * 2; i++) {
       var k = i % len;
 
       while (!stack.isEmpty() && nums[stack.peek()] < nums[k]) {
-        var index = stack.pop();
-        result[index] = nums[k];
+        result[stack.pop()] = nums[k];
       }
 
       stack.push(k);

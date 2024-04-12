@@ -1,6 +1,7 @@
 package data.stack;
 
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class RemoveKDigits_402 {
   public static String removeKDigits(String num, int k) {
@@ -19,7 +20,7 @@ public class RemoveKDigits_402 {
       }
     }
 
-    var result = stack.stream().map(String::valueOf).reduce("", String::concat);
+    var result = stack.stream().map(String::valueOf).collect(Collectors.joining());
     var i = 0;
     for (; i < result.length(); i++) {
       if (result.charAt(i) != '0') {

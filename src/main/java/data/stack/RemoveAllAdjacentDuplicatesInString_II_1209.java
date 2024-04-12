@@ -1,36 +1,35 @@
 package data.stack;
 
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class RemoveAllAdjacentDuplicatesInString_II_1209 {
   public static String removeDuplicates(String s, int k) {
-    var stack = new Stack<Character>();   // store the letter
-    var freq = new Stack<Integer>();  // store the frequency of the letter
-
-    for (int i = 0; i < s.length(); i++) {
-      var c = s.charAt(i);
-      if (!stack.isEmpty() && stack.peek() == c && freq.peek() == k - 1) {
-        // pop from stack
-        stack.pop();
-        freq.pop();
-      } else {
-        int count;
-        if (stack.isEmpty() || stack.peek() != c) {
-          count = 1;
-          stack.push(c);
+    var stack = new Stack<CharCount>();
+    for (var i = 0; i < s.length(); i++) {
+      var ch = s.charAt(i);
+      if (!stack.isEmpty() && stack.peek().ch == ch) {
+        var top = stack.peek();
+        if (top.count == k - 1) {
+          stack.pop();
         } else {
-          count = freq.pop() + 1;
+          top.count++;
         }
-        freq.push(count);
+      } else {
+        stack.push(new CharCount(ch, 1));
       }
     }
 
-    var result = "";
-    for (int i = 0; i < stack.size(); i++) {
-      result += (stack.elementAt(i) + "").repeat(freq.elementAt(i));
-    }
+    return stack.stream().map(c -> String.valueOf(c.ch).repeat(c.count)).collect(Collectors.joining(""));
+  }
 
-    return result;
+  private static class CharCount {
+    public char ch;
+    public int count;
+    public CharCount(char ch, int count) {
+      this.ch = ch;
+      this.count = count;
+    }
   }
 
   public static void main(String[] args) {

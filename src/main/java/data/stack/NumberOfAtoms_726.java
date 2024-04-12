@@ -51,10 +51,10 @@ public class NumberOfAtoms_726 {
   }
 
   public static void main(String[] args) {
-//    System.out.println(countOfAtoms("H2O"));
-//    System.out.println(countOfAtoms("Mg(HO)2"));
-//    System.out.println(countOfAtoms("K4(ON(SO3)2)2"));
-//    System.out.println(countOfAtoms("((N)2(Li)2)2"));
+    System.out.println(countOfAtoms("H2O"));
+    System.out.println(countOfAtoms("Mg(HO)2"));
+    System.out.println(countOfAtoms("K4(ON(SO3)2)2"));
+    System.out.println(countOfAtoms("((N)2(Li)2)2"));
     System.out.println(countOfAtoms("((N42)24(OB40Li30CHe3O48LiNN26)33(C12Li48N30H13HBe31)21(BHN30Li26BCBe47N40)15(H5)16)14"));
   }
 }

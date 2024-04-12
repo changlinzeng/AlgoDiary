@@ -1,9 +1,9 @@
-package data.stack;
+package algo.recursion;
 
 import java.util.Stack;
 
 public class CheckIfWordIsValidAfterSubstitutions_1003 {
-  public static boolean isValid(String s) {
+  public static boolean isValid2(String s) {
     var stack = new Stack<Character>();
     for (int i = 0; i < s.length(); i++) {
       char a = '\0', b = '\0';
@@ -30,6 +30,17 @@ public class CheckIfWordIsValidAfterSubstitutions_1003 {
     }
 
     return stack.isEmpty();
+  }
+
+  public static boolean isValid(String s) {
+    if ("abc".equals(s)) {
+      return true;
+    }
+    var start = s.indexOf("abc");
+    if (start == -1) {
+      return false;
+    }
+    return isValid(s.substring(0, start) + s.substring(start + 3));
   }
 
   public static void main(String[] args) {

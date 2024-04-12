@@ -27,9 +27,9 @@ public class RemoveDuplicateLetters_316 {
   }
 
   public static void main(String[] args) {
-//    System.out.println(removeDuplicateLetters("bcabc"));
-//    System.out.println(removeDuplicateLetters("cbacdcbc"));
-//    System.out.println(removeDuplicateLetters("cbbbcaa"));
+    System.out.println(removeDuplicateLetters("bcabc"));
+    System.out.println(removeDuplicateLetters("cbacdcbc"));
+    System.out.println(removeDuplicateLetters("cbbbcaa"));
     System.out.println(removeDuplicateLetters("abacb"));
   }
 
