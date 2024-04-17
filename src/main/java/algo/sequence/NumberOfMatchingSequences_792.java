@@ -1,9 +1,7 @@
 package algo.sequence;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class NumberOfMatchingSequences_792 {
     public static int numMatchingSubseq(String s, String[] words) {
@@ -30,7 +28,7 @@ public class NumberOfMatchingSequences_792 {
     }
 
     public static void main(String[] args) {
-//        System.out.println(numMatchingSubseq("abcde", new String[]{"a","bb","acd","ace"}));
+        System.out.println(numMatchingSubseq("abcde", new String[]{"a","bb","acd","ace"}));
         System.out.println(numMatchingSubseq("qlhxagxdqh", new String[]{"qlhxagxdq","qlhxagxdq","lhyiftwtut","yfzwraahab"}));
     }
 }

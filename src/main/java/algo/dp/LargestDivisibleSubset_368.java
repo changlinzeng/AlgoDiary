@@ -17,6 +17,7 @@ public class LargestDivisibleSubset_368 {
 
     for (var i = 1; i < len; i++) {
       var idx = -1;
+      // find the largest subset ends at j
       for (var j = i - 1; j >= 0; j--) {
         if (nums[i] % nums[j] == 0 && (idx == -1 || dp.get(j).size() > dp.get(idx).size())) {
           idx = j;

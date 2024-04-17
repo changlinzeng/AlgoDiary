@@ -1,10 +1,11 @@
 package data.priorityQueue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class TaskScheduler {
+public class TaskScheduler_621 {
   public static int leastInterval(char[] tasks, int n) {
     var count = new HashMap<Character, Integer>();
     for (var c : tasks) {
@@ -16,7 +17,6 @@ public class TaskScheduler {
       pq.offer(k);
     }
 
-//    var schedule = "";
     var units = 0;
     while (!pq.isEmpty()) {
       // pop n + 1 chars
@@ -24,7 +24,6 @@ public class TaskScheduler {
       for (var i = 0; i <= n; i++) {
         if (!pq.isEmpty()) {
           var t = pq.poll();
-//          schedule += t;
           units++;
           count.put(t, count.get(t) - 1);
           if (count.get(t) > 0) {
@@ -32,7 +31,6 @@ public class TaskScheduler {
           }
         } else {
           if (!group.isEmpty()) {
-//            schedule += "0";
             units++;
           }
         }
@@ -41,7 +39,6 @@ public class TaskScheduler {
     }
 
     return units;
-//    return schedule.length();
   }
 
   public static void main(String[] args) {

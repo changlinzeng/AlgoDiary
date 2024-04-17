@@ -3,35 +3,45 @@ package algo.dp;
 import datautil.tree.Tree;
 import datautil.tree.TreeNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class HouseRobber_III_337 {
   public static int rob(TreeNode root) {
-    return dfs(root);
+    return dfs(root, new HashMap<>());
   }
 
-  private static int dfs(TreeNode node) {
+  // TODO Timeout !!
+  private static int dfs(TreeNode node, Map<TreeNode, Integer> dp) {
     if (node == null) {
       return 0;
     }
-    var sum = node.val;
+
+    if (dp.containsKey(node)) {
+      return dp.get(node);
+    }
+
+    var sum1 = node.val;
 
     // rob root
     if (node.left != null) {
-      sum += dfs(node.left.left) + dfs(node.left.right);
+      sum1 += dfs(node.left.left, dp) + dfs(node.left.right, dp);
     }
     if (node.right != null) {
-      sum += dfs(node.right.left) + dfs(node.right.right);
+      sum1 += dfs(node.right.left, dp) + dfs(node.right.right, dp);
     }
 
     // do not rob root
-    var sum1 = rob(node.left) + rob(node.right);
+    var sum2 = rob(node.left) + rob(node.right);
 
-    return Math.max(sum, sum1);
+    var maxSum = Math.max(sum1, sum2);
+    dp.putIfAbsent(node, maxSum);
+    return maxSum;
   }
 
   public static void main(String[] args) {
-//    var root = Tree.deserialize("3,2,null,3,null,null,3,null,1,null,null");
-    var root = Tree.fromPreorder("3,4,1,null,null,3,null,null,5,null,1,null,null");
-//    var root = Tree.deserialize("1,2,null,null,3,null,null");
-    System.out.println(rob(root));
+    System.out.println(rob(Tree.deserialize("3,2,null,3,null,null,3,null,1,null,null")));
+    System.out.println(rob(Tree.fromPreorder("3,4,1,null,null,3,null,null,5,null,1,null,null")));
+    System.out.println(rob(Tree.deserialize("1,2,null,null,3,null,null")));
   }
 }

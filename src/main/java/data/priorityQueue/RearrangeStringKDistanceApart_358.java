@@ -1,4 +1,4 @@
-package algo.sort;
+package data.priorityQueue;
 
 import java.util.*;
 
