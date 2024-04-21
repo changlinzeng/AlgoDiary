@@ -1,4 +1,4 @@
-package data.stack;
+package algo.monotonicStack;
 
 import java.util.Stack;
 import java.util.stream.Collectors;

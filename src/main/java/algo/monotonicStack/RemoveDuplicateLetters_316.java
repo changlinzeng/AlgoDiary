@@ -1,4 +1,4 @@
-package data.stack;
+package algo.monotonicStack;
 
 import java.util.HashMap;
 import java.util.Stack;

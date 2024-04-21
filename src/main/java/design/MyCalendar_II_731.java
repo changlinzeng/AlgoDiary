@@ -27,15 +27,15 @@ public class MyCalendar_II_731 {
       }
       return true;
     }
+  }
 
-    public static void main(String[] args) {
-      var cal = new MyCalendarTwo();
-      System.out.println(cal.book(10, 20));
-      System.out.println(cal.book(50, 60));
-      System.out.println(cal.book(10, 40));
-      System.out.println(cal.book(5, 15));
-      System.out.println(cal.book(5, 10));
-      System.out.println(cal.book(25, 55));
-    }
+  public static void main(String[] args) {
+    var cal = new MyCalendarTwo();
+    System.out.println(cal.book(10, 20));
+    System.out.println(cal.book(50, 60));
+    System.out.println(cal.book(10, 40));
+    System.out.println(cal.book(5, 15));
+    System.out.println(cal.book(5, 10));
+    System.out.println(cal.book(25, 55));
   }
 }
