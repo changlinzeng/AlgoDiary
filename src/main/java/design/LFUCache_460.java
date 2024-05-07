@@ -18,107 +18,94 @@ public class LFUCache_460 {
       this.freqFirst = new TreeMap<>();
       head = new Node();
       tail = head;
-//      this.freqFirst.put(0, head);
     }
 
     public int get(int key) {
-      if (!data.containsKey(key)) {
+      var node = this.data.getOrDefault(key, null);
+      if (node == null) {
         return -1;
       }
-      var node = data.get(key);
-      node.count++;
-      moveFront(node);
+      moveFirst(node);
       return node.value;
     }
 
     public void put(int key, int value) {
-      // remove last node
-      if (!data.containsKey(key) && data.size() == this.capacity) {
-        var node = data.get(tail.key);
-        if (freqFirst.get(node.count) == node) {
-          freqFirst.remove(node.count);
-        }
-        data.remove(tail.key);
-        tail = tail.prev;
-        tail.next.prev = null;
-        tail.next = null;
-      }
-      if (data.containsKey(key)) {
-        var node = data.get(key);
-        node.value = value;
-        node.count++;
-        moveFront(node);
+      if (this.data.containsKey(key)) {
+        modifyNode(key, value);
       } else {
-        var node = new Node(key, value, 1);
-        data.put(key, node);
-        tail.next = node;
-        node.prev = tail;
-        tail = node;
-        moveFront(node);
-        if (tail.next != null) {
-          tail = tail.next;
-        }
+        addNode(key, value);
       }
     }
 
-    private void moveFront(Node node) {
-      // head -> prev -> node -> current -> next
-      Node prev = null, next = node.next;
-//      while (prev != head && prev.count <= node.count) {
-//        prev = prev.prev;
-//      }
-
-      if (freqFirst.isEmpty()) {
-        prev = head;
-      } else {
-        // find the first node with the same count
-        for (var k : freqFirst.keySet()) {
-          if (k > node.count) {
-            break;
-          }
-          prev = freqFirst.get(k);
+    private void addNode(int key, int val) {
+      if (this.data.size() == this.capacity) {
+        // remove the first node with count
+        if (this.tail.prev == this.head || this.tail.prev.count != this.tail.count) {
+          freqFirst.remove(this.tail.count);
         }
-        if (prev != null) {
-          prev = prev.prev;
-        }
+        this.data.remove(this.tail.key);
+        remove(this.tail);
       }
+      var node = new Node(key, val, 1);
+      var first = this.freqFirst.get(1);
+      var target = first == null ? this.tail : first.prev;
+      this.data.put(key, node);
+      this.freqFirst.put(1, node);
+      insertAfter(target, node);
+    }
 
-      var currentFirst = freqFirst.get(node.count - 1);
-      // if current node is the first node of the group, then update with the next
-      if (currentFirst == node) {
-        if (currentFirst.next != null && currentFirst.next.count == node.count - 1) {
-          freqFirst.put(node.count - 1, currentFirst.next);
+    private void modifyNode(int key, int val) {
+      var node = this.data.get(key);
+      moveFirst(node);
+      node.value = val;
+      this.data.put(key, node);
+    }
+
+    // move node as the first node with same count
+    private void moveFirst(Node node) {
+      var first = this.freqFirst.get(node.count);
+      var nextFirst = this.freqFirst.get(node.count + 1);
+      var target = nextFirst == null ? first.prev : nextFirst.prev;
+      // find the next node with same count
+      if (first == node) {
+        if (first.next != null && first.next.count == node.count) {
+          this.freqFirst.put(first.count, first.next);
         } else {
-          // remove current if it is the only node
-          freqFirst.remove(node.count - 1);
+          this.freqFirst.remove(first.count);
         }
       }
-      freqFirst.put(node.count, node);
 
-      // no other nodes have the same or smaller count so no need to move
-      if (prev == null) {
-        return;
-      }
+      node.count++;
+      this.freqFirst.put(node.count, node);
+      remove(node);
+      insertAfter(target, node);
+    }
 
-      // no need to move
-      if (prev == node.prev) {
-        return;
-      }
-
-      if (node == tail) {
-        tail = node.prev;
-      }
-
-      node.prev.next = next;
+    private void remove(Node node) {
+      var prev = node.prev;
+      var next = node.next;
+      prev.next = next;
       if (next != null) {
-        next.prev = node.prev;
+        next.prev = prev;
       }
+      if (node == this.tail) {
+        this.tail = prev;
+      }
+      node.prev = null;
+      node.next = null;
+    }
 
-      node.next = prev.next;
-      node.prev = prev;
-      prev.next.prev = node;
-      prev.next = node;
-
+    private void insertAfter(Node target, Node node) {
+      var next = target.next;
+      node.prev = target;
+      node.next = next;
+      target.next = node;
+      if (next != null) {
+        next.prev = node;
+      }
+      if (target == this.tail) {
+        this.tail = node;
+      }
     }
 
     static class Node {
@@ -137,17 +124,17 @@ public class LFUCache_460 {
   }
 
   public static void main(String[] args) {
-//    var cache = new LFUCache(2);
-//    cache.put(1, 1);
-//    cache.put(2, 2);
-//    System.out.println(cache.get(1));
-//    cache.put(3, 3);
-//    System.out.println(cache.get(2));
-//    System.out.println(cache.get(3));
-//    cache.put(4, 4);
-//    System.out.println(cache.get(1));
-//    System.out.println(cache.get(3));
-//    System.out.println(cache.get(4));
+    var cache = new LFUCache(2);
+    cache.put(1, 1);
+    cache.put(2, 2);
+    System.out.println(cache.get(1));
+    cache.put(3, 3);
+    System.out.println(cache.get(2));
+    System.out.println(cache.get(3));
+    cache.put(4, 4);
+    System.out.println(cache.get(1));
+    System.out.println(cache.get(3));
+    System.out.println(cache.get(4));
 
 //    var cache = new LFUCache(3);
 //    cache.put(1,1);
@@ -165,18 +152,18 @@ public class LFUCache_460 {
 //    System.out.println(cache.get(4));
 //    System.out.println(cache.get(5));
 
-    var cache = new LFUCache(3);
-    cache.put(2,2);
-    cache.put(1,1);
-    System.out.println(cache.get(2));
-    System.out.println(cache.get(1));
-    System.out.println(cache.get(2));
-    cache.put(3,3);
-    cache.put(4,4);
-    System.out.println(cache.get(3));
-    System.out.println(cache.get(2));
-    System.out.println(cache.get(1));
-    System.out.println(cache.get(4));
+//    var cache = new LFUCache(3);
+//    cache.put(2,2);
+//    cache.put(1,1);
+//    System.out.println(cache.get(2));
+//    System.out.println(cache.get(1));
+//    System.out.println(cache.get(2));
+//    cache.put(3,3);
+//    cache.put(4,4);
+//    System.out.println(cache.get(3));
+//    System.out.println(cache.get(2));
+//    System.out.println(cache.get(1));
+//    System.out.println(cache.get(4));
 
 //    var cache = new LFUCache(2);
 //    cache.put(2,1);

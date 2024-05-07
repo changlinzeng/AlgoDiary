@@ -1,74 +1,37 @@
 package algo.twoPointers;
 
 public class TrappingRainWater_42 {
-  public static int trap2(int[] height) {
-    int left = 0, right = 0, len = height.length;
-    var sum = 0;
-    while (left < len) {
-      if (left == len - 1) {
-        break;
-      }
-      // find right
-      right = left + 1;
-      if (height[right] < height[left]) {
-        var r = right;
-        for (var h = height[left]; h > height[right]; h--) {
-          while (r < len && height[r] < h) {
-            r++;
-          }
-          if (r < len) {
-            break;
-          } else {
-            r = right;
-          }
-        }
-        right = r;
-        if (right < len) {
-          // calculate water between left and right
-//          System.out.printf("%d - %d\n", left, right);
-          var min = Math.min(height[left], height[right]);
-          for (var i = left + 1; i < right; i++) {
-            sum += (min - height[i]);
-          }
-          left = right;
-        } else {
-          left++;
-        }
-      } else {
-        left++;
-      }
-    }
-
-    return sum;
-  }
-
   /**
-   * Find the max value after each position i and then calculate for each element from i to max
+   * find the max value on the left of i and max value on the right of i
+   * then the trapped water is determined by min(left max, right max) - height[i]
    */
   public static int trap(int[] height) {
     var len = height.length;
-    var position = new int[len]; // the position of the max value after i
-    var max = len - 1;
-    for (var i = len - 2; i >= 0; i--) {
-      if (height[i + 1] >= height[max]) {
-        max = i + 1;
+    var leftMax = new int[len];
+    var maxIdx = 0;
+    for (var i = 1; i < len; i++) {
+      if (height[i] > height[maxIdx]) {
+        maxIdx = i;
       }
-      position[i] = max;
+      leftMax[i] = maxIdx;
     }
 
-    int from = 0, to = 1, sum = 0;
-    while (to < len) {
-      var maxPos = position[from];
-      var maxH = Math.min(height[from], height[maxPos]);
-      while (to < maxPos && height[to] < height[from]) {
-        sum += maxH - height[to];
-        to++;
+    var rightMax = new int[len];
+    rightMax[len - 1] = len - 1;
+    maxIdx = len - 1;
+    for (var i = len -2; i >= 0; i--) {
+      if (height[i] > height[maxIdx]) {
+        maxIdx = i;
       }
-      from = to;
-      to = from + 1;
+      rightMax[i] = maxIdx;
     }
 
-    return sum;
+    var trapped = 0;
+    for (var i = 1; i < len - 1; i++) {
+      var water = Math.min(height[leftMax[i]], height[rightMax[i]]) - height[i];
+      trapped += water;
+    }
+    return trapped;
   }
 
   public static void main(String[] args) {
@@ -76,10 +39,5 @@ public class TrappingRainWater_42 {
     System.out.println(trap(new int[]{4,2,0,3,2,5}));
     System.out.println(trap(new int[]{4,2,3}));
     System.out.println(trap(new int[]{3,2,1,2,1,3}));
-
-    System.out.println(trap2(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
-    System.out.println(trap2(new int[]{4,2,0,3,2,5}));
-    System.out.println(trap2(new int[]{4,2,3}));
-    System.out.println(trap2(new int[]{3,2,1,2,1,3}));
   }
 }

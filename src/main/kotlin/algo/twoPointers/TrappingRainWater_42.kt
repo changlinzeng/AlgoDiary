@@ -4,36 +4,32 @@ import kotlin.math.min
 
 class KtTrappingRainWater_42 {
     fun trap(height: IntArray): Int {
-        // find the max height after i and then calculate from i to max height
-        val len = height.size
-        val maxHeight = IntArray(len)  // index of max height after i
-        var maxH = len - 1
-        height.indices.reversed().forEach { i ->
-            if (i == len - 1) {
-                maxHeight[i] = i
-                maxH = len - 1
-            } else {
-                // update index for max height after i
-                maxHeight[i] = maxH
-                if (height[i] >= height[maxH]) {
-                    maxH = i
-                }
+        val len = height.size;
+        val leftMax = IntArray(len)
+        var maxIdx = 0
+        (1..<len).forEach { i ->
+            if (height[i] > height[maxIdx]) {
+                maxIdx = i
             }
+            leftMax[i] = maxIdx
         }
 
-        var water = 0
-        var from = 0
-        while (from < len) {
-            val to = maxHeight[from]
-            val minH = min(height[from], height[to])
-            var idx = from + 1
-            while (idx < to && height[idx] < minH) {
-                water += minH - height[idx]
-                idx++
+        val rightMax = IntArray(len)
+        rightMax[len - 1] = len - 1
+        maxIdx = len - 1
+        (len - 2 downTo 0).forEach { i ->
+            if (height[i] > height[maxIdx]) {
+                maxIdx = i
             }
-            from = idx
+            rightMax[i] = maxIdx
         }
-        return water
+
+        var trapped = 0
+        (1..<len - 1).forEach { i ->
+            val water = min(height[leftMax[i]], height[rightMax[i]]) - height[i]
+            trapped += water
+        }
+        return trapped
     }
 }
 

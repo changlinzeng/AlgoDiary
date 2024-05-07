@@ -3,6 +3,9 @@ package datautil.tree;
 import java.util.*;
 
 public class Tree {
+    /* ----------------------------------------------------------------------------------------- */
+    /* ------------------ Serialize and Deserialize binary tree in Preorder -------------------- */
+    /* ----------------------------------------------------------------------------------------- */
     public static String toPreorder(TreeNode root) {
         var sb = new StringBuffer();
         doSerialize(root, sb);
@@ -49,9 +52,9 @@ public class Tree {
         }
     }
 
-    /**
-     * Serialize binary tree in level order
-     */
+    /* ----------------------------------------------------------------------------------------- */
+    /* ---------------- Serialize and Deserialize binary tree in Level Order ------------------- */
+    /* ----------------------------------------------------------------------------------------- */
     public static String serialize(TreeNode node) {
         var result = "";
         var q = new LinkedList<TreeNode>();
@@ -66,9 +69,6 @@ public class Tree {
                 continue;
             }
             result += n.val;
-            if (node.left == null && node.right == null) {
-                continue;
-            }
             q.offer(n.left);
             q.offer(n.right);
         }
@@ -81,9 +81,6 @@ public class Tree {
         return result;
     }
 
-    /**
-     * Deserialize binary tree from level order traversal
-     */
     public static TreeNode deserialize(String ser) {
         if (ser == null || ser.isBlank()) {
             return null;
@@ -118,6 +115,9 @@ public class Tree {
         return root;
     }
 
+    /* ----------------------------------------------------------------------------------------- */
+    /* ------------------------------ Build binary tree from heap ------------------------------ */
+    /* ----------------------------------------------------------------------------------------- */
     public static TreeNode fromHeap(Integer[] heap) {
         if (heap.length == 0) {
             return null;
@@ -141,6 +141,9 @@ public class Tree {
         return node;
     }
 
+    /* ----------------------------------------------------------------------------------------- */
+    /* ---------------------- Build binary tree from Preorder and Inorder ---------------------- */
+    /* ----------------------------------------------------------------------------------------- */
     /**
      * Applies when the node values are unique in the tree
      */
@@ -170,6 +173,9 @@ public class Tree {
         return node;
     }
 
+    /**
+     * Preorder traversal
+     */
     public static void preorder(TreeNode root, List<Integer> nodes) {
         if (root == null) {
             return;
@@ -179,6 +185,9 @@ public class Tree {
         preorder(root.right, nodes);
     }
 
+    /**
+     * Inorder traversal
+     */
     public static void inorder(TreeNode root, List<Integer> nodes) {
         if (root == null) {
             return;

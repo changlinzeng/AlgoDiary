@@ -2,13 +2,9 @@ package algo.depthFirstSearch;
 
 public class WordSearch_79 {
     public static boolean exist(char[][] board, String word) {
-        if (word.length() > board.length * board[0].length) {
-            return false;
-        }
-        var visited = new boolean[board.length][board[0].length];
         for (var i = 0; i < board.length; i++) {
             for (var j = 0; j < board[0].length; j++) {
-                if (search(board, i, j, word, 0, visited)) {
+                if (search(board, i, j, word, 0, new boolean[board.length][board[0].length])) {
                     return true;
                 }
             }
@@ -16,42 +12,48 @@ public class WordSearch_79 {
         return false;
     }
 
-    private static boolean search(char[][] board, int row, int col, String word, int direction, boolean[][] visited) {
-        if (visited[row][col] || board[row][col] != word.charAt(0)) {
-            return false;
-        }
-        if (word.length() == 1) {
+    private static boolean search(char[][] board, int row, int col, String word, int index, boolean[][] visited) {
+        int rows = board.length, cols = board[0].length;
+        // reach the end
+        if (index == word.length()) {
             return true;
+        }
+        if (visited[row][col] || board[row][col] != word.charAt(index)) {
+            return false;
         }
 
         visited[row][col] = true;
+
+        if (index == word.length() - 1) {
+            return true;
+        }
+
         var found = false;
-        // up
-        if (row > 0 && direction != 2) {
-            if (search(board, row - 1, col, word.substring(1), 4, visited)) {
+        if (row > 0) {
+            if (search(board, row - 1, col, word, index + 1, visited)) {
                 found = true;
             }
         }
-        // down
-        if (row < board.length - 1 && direction != 4) {
-            if (search(board, row + 1, col, word.substring(1), 2, visited)) {
+        if (!found && row < board.length - 1) {
+            if (search(board, row + 1, col, word, index + 1, visited)) {
                 found = true;
             }
         }
-        // left
-        if (col > 0 && direction != 1) {
-            if (search(board, row, col - 1, word.substring(1), 3, visited)) {
+        if (!found && col > 0) {
+            if (search(board, row, col - 1, word, index + 1, visited)) {
                 found = true;
             }
         }
-        // right
-        if (col < board[0].length - 1 && direction != 3) {
-            if (search(board, row, col + 1, word.substring(1), 1, visited)) {
+        if (!found && col < board[0].length - 1) {
+            if (search(board, row, col + 1, word, index + 1, visited)) {
                 found = true;
             }
         }
 
-        visited[row][col] = false;
+        // revert visited as one cell may be used more than once for different words
+        if (!found) {
+            visited[row][col] = false;
+        }
 
         return found;
     }

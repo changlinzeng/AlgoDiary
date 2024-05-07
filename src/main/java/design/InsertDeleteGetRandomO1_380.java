@@ -1,79 +1,48 @@
 package design;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class InsertDeleteGetRandomO1_380 {
   static class RandomizedSet {
-    private final Map<Integer, Node> nodeMap; // map of {position: node}
-    private final Node data;
-    private Node tail;
+    private final Map<Integer, Integer> position; // map of {val: position}
+    private final List<Integer> data;
     private final Random rand;
 
     public RandomizedSet() {
-      data = new Node(0, -1);
-      tail = data;
-      nodeMap = new HashMap<>();
+      data = new ArrayList<>();
+      position = new HashMap<>();
       rand = new Random();
     }
 
     public boolean insert(int val) {
-      if (nodeMap.containsKey(val)) {
+      if (position.containsKey(val)) {
         return false;
       }
-      var nextIndex = tail.index + 1;
-      var node = new Node(val, nextIndex);
-      nodeMap.put(val, node);
-      tail.next = node;
-      node.prev = tail;
-      tail = tail.next;
+      data.add(val);
+      position.put(val, data.size() - 1);
       return true;
     }
 
     public boolean remove(int val) {
-      if (!nodeMap.containsKey(val)) {
+      if (!position.containsKey(val)) {
         return false;
       }
-      var node = nodeMap.get(val);
-      nodeMap.remove(val);
-      // remove node from list
-      var prev = node.prev;
-      prev.next = node.next;
-      if (node.next != null) {
-        node.next.prev = prev;
-      }
-      if (node == tail) {
-        tail = node.prev;
-      }
-      // update index from removed node afterward
-      var idx = prev.index + 1;
-      var cur = prev.next;
-      while (cur != null) {
-        cur.index = idx++;
-        cur = cur.next;
+      int pos = position.get(val);
+      position.remove(val);
+      if (pos == data.size() - 1) {
+        data.removeLast();
+      } else {
+        // move the last element to pos and remove the last element
+        var last = data.getLast();
+        data.set(pos, last);
+        data.removeLast();
+        position.put(last, pos);
       }
       return true;
     }
 
     public int getRandom() {
-      var index = rand.nextInt(tail.index + 1);
-      var cur = data.next;
-      while (cur != null && cur.index != index) {
-        cur = cur.next;
-      }
-      return cur.val;
-    }
-
-    static class Node {
-      public int val;
-      public int index;
-      public Node prev;
-      public Node next;
-      public Node(int val, int index) {
-        this.val = val;
-        this.index = index;
-      }
+      return data.get(rand.nextInt(data.size()));
     }
   }
 
