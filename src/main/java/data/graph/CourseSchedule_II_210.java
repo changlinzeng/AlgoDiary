@@ -3,64 +3,44 @@ package data.graph;
 import java.util.*;
 
 public class CourseSchedule_II_210 {
+    // Topology sort according to indegree
     public static int[] findOrder(int numCourses, int[][] prerequisites) {
-        // calculate degree of each node
-        var degree = new HashMap<Integer, Integer>();
-        var sibling = new HashMap<Integer, List<Integer>>();
-        var visited = new boolean[numCourses];
+        var degree = new int[numCourses];
+        var adjMap = new HashMap<Integer, List<Integer>>();
         for (var pre : prerequisites) {
-            degree.put(pre[0], degree.getOrDefault(pre[0], 0) + 1);
-            if (sibling.containsKey(pre[1])) {
-                sibling.get(pre[1]).add(pre[0]);
-            } else {
-                var list = new ArrayList<Integer>();
-                list.add(pre[0]);
-                sibling.put(pre[1], list);
-            }
+            adjMap.putIfAbsent(pre[1], new ArrayList<>());
+            adjMap.get(pre[1]).add(pre[0]);
+            degree[pre[0]]++;
         }
+
+        var order = new ArrayList<Integer>();
+        var q = new ArrayDeque<Integer>();
         for (var i = 0; i < numCourses; i++) {
-            if (!degree.containsKey(i)) {
-                degree.put(i, 0);
+            if (degree[i] == 0) {
+                q.offer(i);
             }
         }
-
-        var schedule = new ArrayList<Integer>();
-        for (var course : degree.keySet()) {
-            if (!visited[course] && degree.get(course) == 0) {
-                dfs(course, sibling, degree, visited, schedule);
-            }
-        }
-
-        // check if there are nodes whose degree is not zero as any nodes in a cycle will have degree > 0
-        for (var key : degree.keySet()) {
-            if (degree.get(key) > 0) {
-                return new int[0];
-            }
-        }
-
-        var result = new int[schedule.size()];
-        for (var i = 0; i < schedule.size(); i++) {
-            result[i] = schedule.get(i);
-        }
-        return result;
-    }
-
-    private static void dfs(int course, Map<Integer, List<Integer>> sibling, Map<Integer, Integer> degree,
-                               boolean[] visited, List<Integer> schedule) {
-        if (visited[course]) {
-            return;
-        }
-        // consume the node if degree is 0 otherwise there are prerequisites not fulfilled
-        if (degree.get(course) == 0) {
-            visited[course] = true;
-            schedule.add(course);
-            if (sibling.containsKey(course)) {
-                for (var i : sibling.get(course)) {
-                    degree.put(i, Math.max(degree.get(i) - 1, 0));
-                    dfs(i, sibling, degree, visited, schedule);
+        while (!q.isEmpty()) {
+            var c = q.poll();
+            order.add(c);
+            if (adjMap.containsKey(c)) {
+                for (var n : adjMap.get(c)) {
+                    degree[n]--;
+                    if (degree[n] == 0) {
+                        q.offer(n);
+                    }
                 }
             }
         }
+        if (order.size() < numCourses) {
+            return new int[0];
+        }
+
+        var arr = new int[numCourses];
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = order.get(i);
+        }
+        return arr;
     }
 
     public static int[] findOrder2(int numCourses, int[][] prerequisites) {
@@ -125,14 +105,11 @@ public class CourseSchedule_II_210 {
     }
 
     public static void main(String[] args) {
-//        var order = findOrder(2, new int[][]{{1, 0}});
-        var order = findOrder2(4, new int[][]{{1, 0},{2,0},{3,1},{3,2}});
-//        var order = findOrder(2, new int[][]{{0,1}});
-//        var order = findOrder2(3, new int[][]{{1,0},{2,0}});
-//        var order = findOrder(3, new int[][]{{2,0},{2,1}});
-//        var order = findOrder2(3, new int[][]{{1,0},{1,2},{0,1}});
-        for (var i : order) {
-            System.out.println(i);
-        }
+        System.out.println(Arrays.toString(findOrder(2, new int[][]{{1, 0}})));
+        System.out.println(Arrays.toString(findOrder(4, new int[][]{{1, 0},{2,0},{3,1},{3,2}})));
+        System.out.println(Arrays.toString(findOrder(2, new int[][]{{0,1}})));
+        System.out.println(Arrays.toString(findOrder(3, new int[][]{{1,0},{2,0}})));
+        System.out.println(Arrays.toString(findOrder(3, new int[][]{{2,0},{2,1}})));
+        System.out.println(Arrays.toString(findOrder(3, new int[][]{{1,0},{1,2},{0,1}})));
     }
 }
