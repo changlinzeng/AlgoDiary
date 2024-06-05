@@ -6,7 +6,7 @@ import java.util.*;
  * Check cycle from each node whose indegreee is 0
  */
 public class CourseSchedule_207 {
-  public static boolean canFinish(int numCourses, int[][] prerequisites) {
+  public static boolean canFinish2(int numCourses, int[][] prerequisites) {
     var adjMap = new HashMap<Integer, List<Integer>>();
     var visited = new boolean[numCourses];
     var roots = new HashSet<Integer>();
@@ -59,6 +59,48 @@ public class CourseSchedule_207 {
     color[node] = 2;
     visited[node] = true;
     return true;
+  }
+
+  // Topological sort
+  public static boolean canFinish(int numCourses, int[][] prerequisites) {
+    var degree = new int[numCourses];
+    var adjMap = new HashMap<Integer, List<Integer>>();
+    for (var pre : prerequisites) {
+      adjMap.putIfAbsent(pre[1], new ArrayList<>());
+      adjMap.get(pre[1]).add(pre[0]);
+      degree[pre[0]]++;
+    }
+
+    var q = new ArrayDeque<Integer>();
+    for (var i = 0; i < degree.length; i++) {
+      if (degree[i] == 0) {
+        q.offer(i);
+      }
+    }
+
+    // no nodes with degree 0 found, so there are circles
+    if (q.isEmpty()) {
+      return false;
+    }
+
+    var visited = new HashSet<Integer>();
+    while (!q.isEmpty()) {
+      var course = q.poll();
+      if (!visited.add(course)) {
+        return false;
+      }
+      if (!adjMap.containsKey(course)) {
+        continue;
+      }
+      for (var child : adjMap.get(course)) {
+        degree[child]--;
+        if (degree[child] == 0) {
+          q.offer(child);
+        }
+      }
+    }
+
+    return visited.size() == numCourses;
   }
 
   public static void main(String[] args) {
