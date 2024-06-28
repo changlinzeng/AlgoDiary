@@ -3,30 +3,28 @@ package algo.depthFirstSearch;
 import datautil.tree.Tree;
 import datautil.tree.TreeNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MaximumProductOfSplittedBinaryTree_1339 {
     private static final long mod = 1_000_000_007L;
-    private static long max = 0;
     public static int maxProduct(TreeNode root) {
-        long total = sum(root);
-        product(root, total);
+        long max = 0;
+        var subTreeSum = new HashMap<TreeNode, Long>();
+        long total = sum(root, subTreeSum);
+        for (var kv : subTreeSum.entrySet()) {
+            max = Math.max(max, kv.getValue() * (total - kv.getValue()));
+        }
         return (int)(max % mod);
     }
 
-    private static void product(TreeNode node, long total) {
-        if (node == null) {
-            return;
-        }
-        var nodeSum = sum(node);
-        max = Math.max((total - nodeSum) * nodeSum, max);
-        product(node.left, total);
-        product(node.right, total);
-    }
-
-    private static long sum(TreeNode node) {
+    private static long sum(TreeNode node, Map<TreeNode, Long> subTreeSum) {
         if (node == null) {
             return 0;
         }
-        return node.val + sum(node.left) + sum(node.right);
+        long sum = node.val + sum(node.left, subTreeSum) + sum(node.right, subTreeSum);
+        subTreeSum.put(node, sum);
+        return sum;
     }
 
     public static void main(String[] args) {

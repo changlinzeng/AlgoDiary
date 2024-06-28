@@ -53,6 +53,5 @@ public class StringToInteger_atoi_8 {
     System.out.println(myAtoi("word and 987"));
     System.out.println(myAtoi("-91283472332"));
     System.out.println(myAtoi("-2-"));
-    System.out.println(Integer.MIN_VALUE);
   }
 }

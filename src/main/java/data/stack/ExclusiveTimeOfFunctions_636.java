@@ -36,7 +36,8 @@ public class ExclusiveTimeOfFunctions_636 {
 //    var result = exclusiveTime(1, List.of("0:start:0","0:start:2","0:end:5","0:start:6","0:end:6","0:end:7"));
 //    var result = exclusiveTime(2, List.of("0:start:0","0:start:2","0:end:5","1:start:6","1:end:6","0:end:7"));
 //    var result = exclusiveTime(2, List.of("0:start:0","0:start:2","0:end:5","1:start:7","1:end:7","0:end:8"));
-    var result = exclusiveTime(1, List.of("0:start:0","0:start:1","0:start:2","0:end:3","0:end:4","0:end:5"));
+//    var result = exclusiveTime(1, List.of("0:start:0","0:start:1","0:start:2","0:end:3","0:end:4","0:end:5"));
+    var result = exclusiveTime(3, List.of("1:start:0","0:start:2","1:start:3","2:start:4","2:end:4","0:end:6","1:end:7","1:end:8"));
     Arrays.stream(result).asLongStream().forEach(System.out::println);
   }
 }

@@ -1,4 +1,4 @@
-package algo.depthFirstSearch;
+package algo.topologySort;
 
 import java.util.*;
 

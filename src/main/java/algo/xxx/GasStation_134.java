@@ -2,25 +2,22 @@ package algo.xxx;
 
 public class GasStation_134 {
   public static int canCompleteCircuit(int[] gas, int[] cost) {
-    var len = gas.length;
-    for (int i = 0; i < len; i++) {
-      if (gas[i] < cost[i]) {
-        continue;
+    int total = 0, fuel = 0;
+    int start = 0;
+    var i = 0;
+    // calculate the gas left at each station and if it is negative,
+    // it means we could make full trip from the start station to current station
+    // then we try to make trip at station i + 1
+    while (i < gas.length) {
+      total += gas[i] - cost[i];
+      fuel += gas[i] - cost[i];
+      if (fuel < 0) {
+        fuel = 0;
+        start = i + 1;
       }
-      int steps = len, j = i, fuel = gas[j];
-      while (steps > 0) {
-        if (fuel < cost[j]) {
-          break;
-        }
-        fuel = fuel - cost[j] + gas[(j + 1) % len];
-        j = (j + 1) % len;
-        steps--;
-      }
-      if (steps == 0) {
-        return i;
-      }
+      i++;
     }
-    return -1;
+    return total < 0 ? -1 : start;
   }
 
   public static void main(String[] args) {
