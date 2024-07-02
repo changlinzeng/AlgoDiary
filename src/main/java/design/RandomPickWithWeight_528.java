@@ -1,31 +1,26 @@
 package design;
 
-import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
 
 public class RandomPickWithWeight_528 {
   static class Solution {
 
-    private final Map<Integer, int[]> bucket;
-    private int total = 0;
+    private final int[] weight;
 
     public Solution(int[] w) {
-      bucket = new TreeMap<>();
-      var m = 0;
+      weight = new int[w.length + 1];
+      weight[0] = 0;
+      // calculate the prefix sum and the diff between two sums are the probability
       for (var i = 0; i < w.length; i++) {
-        total += w[i];
-        bucket.put(i, new int[]{m, m + w[i]});
-        m = m + w[i];
+        weight[i + 1] = w[i] + weight[i];
       }
     }
 
     public int pickIndex() {
-      var rand = new Random();
-      var r = rand.nextInt(total);
-      for (var entry : bucket.entrySet()) {
-        if (r >= entry.getValue()[0] && r < entry.getValue()[1]) {
-          return entry.getKey();
+      var rand = new Random().nextInt(weight[weight.length - 1]);
+      for (var i = 0; i < weight.length - 1; i++) {
+        if (rand >= weight[i] && rand < weight[i + 1]) {
+          return i;
         }
       }
       return -1;

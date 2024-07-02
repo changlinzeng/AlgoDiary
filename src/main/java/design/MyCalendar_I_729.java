@@ -40,15 +40,15 @@ public class MyCalendar_I_729 {
         if (mid == i) {
           break;
         }
-        if (events.get(mid).start < start) {
+        if (start == events.get(mid).start) {
+          return false;
+        } else if (events.get(mid).start < start) {
           i = mid;
-        } else if (events.get(mid).start > start) {
-          j = mid;
         } else {
-          break;
+          j = mid;
         }
       }
-      if (events.get(mid).end <= start && (mid == events.size() - 1 || events.get(mid + 1).start >= end)) {
+      if (events.get(mid).end <= start && events.get(mid + 1).start >= end) {
         // insert new event after mid
         events.add(mid + 1, event);
         return true;

@@ -6,45 +6,34 @@ import java.util.Set;
 
 public class PalindromicSubstrings_647 {
   public static int countSubstrings(String s) {
-    var len = s.length();
-    var palindrome = new HashMap<Integer, Set<Integer>>();  // start indices of palindrome ends at i
-    var dp = new int[len];
-    dp[0] = 1;
-    palindrome.put(0, new HashSet<>());
-    palindrome.get(0).add(0);
-    for (var i = 1; i < len; i++) {
-      dp[i] = dp[i - 1] + 1;
-      palindrome.put(i, new HashSet<>());
-      palindrome.get(i).add(i);
-      // check if we can make palindrome with i
-      var count = 0;
-      for (var idx : palindrome.get(i - 1)) {
-        // check palindrome from idx - 1 to i
-        if (idx > 0 && s.charAt(idx - 1) == s.charAt(i)) {
-          palindrome.get(i).add(idx - 1);
-          count++;
+    var dp = new HashMap<Integer, Set<Integer>>();  // start indices of palindrome ends at i
+    dp.put(0, new HashSet<>());
+    dp.get(0).add(0);
+    var count = 1;
+    for (var i = 1; i < s.length(); i++) {
+      dp.put(i, new HashSet<>());
+      dp.get(i).add(i);
+      // check if we can make palindrome
+      for (var start : dp.get(i - 1)) {
+        if (isPalindrome(s, start, i)) {
+          dp.get(i).add(start);
+        }
+        if (start > 0 && s.charAt(start - 1) == s.charAt(i)) {
+          dp.get(i).add(start - 1);
         }
       }
-      for (var idx : palindrome.get(i - 1)) {
-        // check palindrome from idx to i
-        if (palindrome.get(i).contains(idx)) {
-          continue;
-        }
-        var found = true;
-        for (var k = idx; k <= idx + (i - idx) / 2; k++) {
-          if (s.charAt(k) != s.charAt(i + idx - k)) {
-            found = false;
-            break;
-          }
-        }
-        if (found) {
-          palindrome.get(i).add(idx);
-          count++;
-        }
-      }
-      dp[i] += count;
+      count += dp.get(i).size();
     }
-    return dp[len - 1];
+    return count;
+  }
+
+  private static boolean isPalindrome(String s, int start, int end) {
+    for (int i = start, j = end; i < j; i++, j--) {
+      if (s.charAt(i) != s.charAt(j)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public static void main(String[] args) {

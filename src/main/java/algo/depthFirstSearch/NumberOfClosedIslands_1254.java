@@ -6,42 +6,36 @@ public class NumberOfClosedIslands_1254 {
         var visited = new boolean[grid.length][grid[0].length];
         for (var i = 1; i < grid.length; i++) {
             for (var j = 1; j < grid[0].length; j++) {
-                if (grid[i][j] == 0 && !visited[i][j]) {
-                    num += findIslands(grid, i, j, visited);
+                if (grid[i][j] == 0 && !visited[i][j] && findIslands(grid, i, j, visited)) {
+                    num++;
                 }
             }
         }
         return num;
     }
 
-    private static int findIslands(int[][] grid, int row, int col, boolean[][] visited) {
+    private static boolean findIslands(final int[][] grid, final int row, final int col, final boolean[][] visited) {
+        int rows = grid.length, cols = grid[0].length;
         if (visited[row][col] || grid[row][col] == 1) {
-            return 1;
+            return true;
         }
-
         visited[row][col] = true;
 
-        var reachBorder = row == 0 || row == grid.length - 1 || col == 0 || col == grid[0].length - 1;
+        // we need to visit other cells even if we reach border so that we can mark all cells visited
+        var reachBorder = row == 0 || row == rows - 1 || col == 0 || col == cols - 1;
 
-        int num1 = 0, num2 = 0, num3 = 0, num4 = 0;
-        if (row > 0) {
-            num1 = findIslands(grid, row - 1, col, visited);
+        var directions = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        var result = true;
+        for (var direction : directions) {
+            int nextRow = row + direction[0], nextCol = col + direction[1];
+            if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols) {
+                if (!findIslands(grid, nextRow, nextCol, visited)) {
+                    // we can not return from here as we need to visit all cells
+                    result = false;
+                }
+            }
         }
-        if (row < grid.length - 1) {
-            num2 = findIslands(grid, row + 1, col, visited);
-        }
-        if (col > 0) {
-            num3 = findIslands(grid, row, col - 1, visited);
-        }
-        if (col < grid[0].length - 1) {
-            num4 = findIslands(grid, row, col + 1, visited);
-        }
-
-        if (reachBorder || num1 == 0 || num2 == 0 || num3 == 0 || num4 == 0) {
-            return 0;
-        } else {
-            return 1;
-        }
+        return !reachBorder && result;
     }
 
     public static void main(String[] args) {
