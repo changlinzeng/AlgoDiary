@@ -17,6 +17,7 @@ public class DeleteNodeInBST_450 {
         cur = cur.right;
       }
     }
+    // target node not found
     if (cur == null) {
       return root;
     }
@@ -26,6 +27,7 @@ public class DeleteNodeInBST_450 {
     cur.right = null;
 
     if (right == null) {
+      // right child of target node is null so replace target with its left child
       if (par.left == cur) {
         par.left = left;
       }
@@ -36,6 +38,7 @@ public class DeleteNodeInBST_450 {
         root = left;
       }
     } else {
+      // replace target with its right child and then append left child to the left most child of right subtree
       if (par.left == cur) {
         par.left = right;
       }
@@ -45,16 +48,12 @@ public class DeleteNodeInBST_450 {
       if (cur == root) {
         root = right;
       }
-      if (left != null) {
-        var lleft = right.left;
-        right.left = left;
-
-        // move the left child to right most
-        while (left.right != null) {
-          left = left.right;
-        }
-        left.right = lleft;
+      // append left to the left most child of the right subtree of target
+      var leftMost = right;
+      while (leftMost.left != null) {
+        leftMost = leftMost.left;
       }
+      leftMost.left = left;
     }
 
     return root;

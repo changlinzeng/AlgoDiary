@@ -1,50 +1,49 @@
 package algo.depthFirstSearch;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SurroundedRegions_130 {
     public static void solve(char[][] board) {
-        var row = board.length;
-        var column = board[0].length;
-        var visited = new boolean[row][column];
-        for (var i = 0; i < row; i++) {
-            for (var j = 0; j < column; j++) {
-                var region = new ArrayList<int[]>();
-                if (!visited[i][j]) {
-                    captureRegion(board, i, j, visited, region);
-                    for (var cell : region) {
-                        if (cell[0] == 0 || cell[0] == row - 1 || cell[1] == 0 || cell[1] == column - 1) {
-                            // revert consumed cells if we consumed cells on border
-                            for (var r : region) {
-                                board[r[0]][r[1]] = 'O';
-                            }
-                            break;
-                        }
-                    }
+        int rows = board.length, cols = board[0].length;
+        var visited = new boolean[rows][cols];
+        for (var r : new int[]{0, rows - 1}) {
+            for (var j = 0; j < cols; j++) {
+                edgeDfs(board, r, j, visited);
+            }
+        }
+        for (var c : new int[]{0, cols - 1}) {
+            for (var i = 0; i < rows; i++) {
+                edgeDfs(board, i, c, visited);
+            }
+        }
+
+        // count the cells whose value is 'O' and not visited
+        for (var i = 0; i < rows; i++) {
+            for (var j = 0; j < cols; j++) {
+                if (board[i][j] == 'O' && !visited[i][j]) {
+                    board[i][j] = 'X';
                 }
             }
         }
     }
 
-    private static void captureRegion(char[][] board, int row, int column, boolean[][] visited, List<int[]> region) {
-        if (board[row][column] == 'X' || visited[row][column]) {
+    /**
+     * Start dfs from edges and find the cells that can be reached from edge.
+     * The rest cells are the ones that isolated from edges
+     */
+    private static void edgeDfs(final char[][] board, final int row, final int col, boolean[][] visited) {
+        int rows = board.length, cols = board[0].length;
+        if (visited[row][col]) {
             return;
         }
-        visited[row][column] = true;
-        board[row][column] = 'X';
-        region.add(new int[]{row, column});
-        if (column + 1 < board[0].length) {
-            captureRegion(board, row, column + 1, visited, region);
+        if (board[row][col] == 'X') {
+            return;
         }
-        if (column > 0) {
-            captureRegion(board, row, column - 1, visited, region);
-        }
-        if (row + 1 < board.length) {
-            captureRegion(board, row + 1, column, visited, region);
-        }
-        if (row > 0) {
-            captureRegion(board, row - 1, column, visited, region);
+        visited[row][col] = true;
+        var directions = new int[][]{{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
+        for (var direction : directions) {
+            int nextRow = row + direction[0], nextCol = col + direction[1];
+            if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols) {
+                edgeDfs(board, nextRow, nextCol, visited);
+            }
         }
     }
 

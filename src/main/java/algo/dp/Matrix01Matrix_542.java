@@ -17,28 +17,16 @@ public class Matrix01Matrix_542 {
           if (i - 1 >= 0) {
             dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + 1);
           }
-          if (i + 1 < rows) {
-            dp[i][j] = Math.min(dp[i][j], dp[i + 1][j] + 1);
-          }
           if (j - 1 >= 0) {
             dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + 1);
-          }
-          if (j + 1 < cols) {
-            dp[i][j] = Math.min(dp[i][j], dp[i][j + 1] + 1);
           }
         }
       }
     }
     for (var i = rows - 1; i >= 0; i--) {
       for (var j = cols - 1; j >= 0; j--) {
-        if (i - 1 >= 0) {
-          dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + 1);
-        }
         if (i + 1 < rows) {
           dp[i][j] = Math.min(dp[i][j], dp[i + 1][j] + 1);
-        }
-        if (j - 1 >= 0) {
-          dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + 1);
         }
         if (j + 1 < cols) {
           dp[i][j] = Math.min(dp[i][j], dp[i][j + 1] + 1);

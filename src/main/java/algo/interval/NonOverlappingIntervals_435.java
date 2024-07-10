@@ -1,32 +1,23 @@
 package algo.interval;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class NonOverlappingIntervals_435 {
   public static int eraseOverlapIntervals(int[][] intervals) {
-    var intervalList = new ArrayList<int[]>();
-    for (var interval : intervals) {
-      intervalList.add(interval);
-    }
-
     // sort with interval end
-    intervalList.sort(Comparator.comparingInt(i -> i[1]));
+    Arrays.sort(intervals, Comparator.comparingInt(a -> a[1]));
 
-    int[] prev = null;
+    int[] prev = intervals[0];
     int removed = 0;
-    for (var interval : intervalList) {
-      if (prev == null) {
-        prev = interval;
-      } else {
-        // compare with prev interval
-        if (interval[0] < prev[1]) {
+    for (var i = 1; i < intervals.length; i++) {
+        if (intervals[i][0] < prev[1]) {
           //remove current interval
           removed++;
         } else {
-          prev = interval;
+          prev = intervals[i];
         }
-      }
     }
 
     return removed;

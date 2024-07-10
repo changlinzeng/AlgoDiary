@@ -11,7 +11,6 @@ public class HouseRobber_III_337 {
     return dfs(root, new HashMap<>());
   }
 
-  // TODO Timeout !!
   private static int dfs(TreeNode node, Map<TreeNode, Integer> dp) {
     if (node == null) {
       return 0;
@@ -32,7 +31,7 @@ public class HouseRobber_III_337 {
     }
 
     // do not rob root
-    var sum2 = rob(node.left) + rob(node.right);
+    var sum2 = dfs(node.left, dp) + dfs(node.right, dp);
 
     var maxSum = Math.max(sum1, sum2);
     dp.putIfAbsent(node, maxSum);

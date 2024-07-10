@@ -9,28 +9,27 @@ public class FlipEquivalentBinaryTrees_951 {
   }
 
   private static boolean flip(TreeNode node1, TreeNode node2) {
+    int invalidVal = -1;
     if (node1 == null && node2 == null) {
       return true;
     }
-    if (node1 == null && node2 != null || node1 != null && node2 == null) {
+    int val1 = node1 == null ? invalidVal : node1.val;
+    int val2 = node2 == null ? invalidVal : node2.val;
+    if (val1 != val2) {
       return false;
-    }
-    if (node1 != null && node2 != null && node1.val != node2.val) {
-      return false;
-    }
-    if ((node1.left == null && node2.left == null ||
-            node1.left != null && node2.left != null && node1.left.val == node2.left.val) &&
-            (node1.right == null && node2.right == null ||
-                    node1.right != null && node2.right != null && node1.right.val == node2.right.val)) {
-      // do nothing
-    } else {
-      // flip
-      var tmp = node1.left;
-      node1.left = node1.right;
-      node1.right = tmp;
     }
 
-    return flip(node1.left, node2.left) && flip(node1.right, node2.right);
+    int leftVal1 = node1 == null ? -1 : (node1.left == null ? -1 : node1.left.val);
+    int rightVal1 = node1 == null ? -1 : (node1.right == null ? -1 : node1.right.val);
+    int leftVal2 = node2 == null ? -1 : (node2.left == null ? -1 : node2.left.val);
+    int rightVal2 = node2 == null ? -1 : (node2.right == null ? -1 : node2.right.val);
+    if (leftVal1 == leftVal2 && rightVal1 == rightVal2) {
+      return flip(node1.left, node2.left) && flip(node1.right, node2.right);
+    }
+    if (leftVal1 == rightVal2 && leftVal2 == rightVal1) {
+      return flip(node1.left, node2.right) && flip(node1.right, node2.left);
+    }
+    return false;
   }
 
   public static void main(String[] args) {

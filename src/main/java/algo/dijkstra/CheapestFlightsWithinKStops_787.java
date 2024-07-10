@@ -1,36 +1,36 @@
-package data.graph;
+package algo.dijkstra;
 
 import java.util.*;
 
 public class CheapestFlightsWithinKStops_787 {
-    private static int minPrice = Integer.MAX_VALUE;
-
     public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         var adjList = new HashMap<Integer, List<int[]>>();
-        for (var i = 0; i < n ;i++) {
-            adjList.put(i, new ArrayList<>());
-        }
         for (var f : flights) {
+            adjList.putIfAbsent(f[0], new ArrayList<>());
             adjList.get(f[0]).add(new int[]{f[1], f[2]});
         }
 
-//        return findCheapestDFS(adjList, src, dst, k);
-        return findCheapestDijkstra(adjList, src, dst, k);
+        return findCheapestDijkstra(n, adjList, src, dst, k);
     }
 
-    private static int findCheapestDijkstra(Map<Integer, List<int[]>> adjList, int src, int dst, int k) {
-        var cost = new int[adjList.size()];
+    private static int findCheapestDijkstra(int n, Map<Integer, List<int[]>> adjList, int src, int dst, int k) {
+        var cost = new int[n];
         var pq = new PriorityQueue<Node>(Comparator.comparingInt(a -> a.stops));
         Arrays.fill(cost, Integer.MAX_VALUE);
-        cost[src] = 0;
 
         pq.offer(new Node(src, 0, 0));
         while (!pq.isEmpty()) {
             var node = pq.poll();
-            int dist = node.distance, stops = node.stops;
-            for (var n : adjList.get(node.city)) {
-                int sibling = n[0], price = n[1];
-                if (stops <= k && dist + price < cost[sibling]) {
+            int city = node.city, dist = node.distance, stops = node.stops;
+            if (!adjList.containsKey(city)) {
+                continue;
+            }
+            if (stops > k) {
+                continue;
+            }
+            for (var nextCity : adjList.get(city)) {
+                int sibling = nextCity[0], price = nextCity[1];
+                if (dist + price < cost[sibling]) {
                     cost[sibling] = dist + price;
                     pq.offer(new Node(sibling, cost[sibling], stops + 1));
                 }
@@ -41,27 +41,6 @@ public class CheapestFlightsWithinKStops_787 {
     }
 
     private record Node(int city, int distance, int stops) {}
-
-    /**
-     * dfs has time limit exceeded issue
-     */
-    private static int findCheapestDFS(Map<Integer, List<int[]>> adjList, int src, int dst, int k) {
-        findPrice(adjList, src, dst, k + 1, 0);
-        return minPrice == Integer.MAX_VALUE ? -1 : minPrice;
-    }
-
-    private static void findPrice(Map<Integer, List<int[]>> adjList, int current, int dst, int k, int total) {
-        if (k < 0) {
-            return;
-        }
-        if (current == dst) {
-            minPrice = Math.min(total, minPrice);
-            return;
-        }
-        for (var neighbour : adjList.get(current)) {
-            findPrice(adjList, neighbour[0], dst, k - 1, total + neighbour[1]);
-        }
-    }
 
     public static void main(String[] args) {
         System.out.println(findCheapestPrice(4, new int[][]{{0,1,100},{1,2,100},{2,0,100},{1,3,600},{2,3,200}}, 0, 3, 1));
