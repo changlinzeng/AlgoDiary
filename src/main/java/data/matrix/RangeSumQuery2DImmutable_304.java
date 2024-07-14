@@ -1,6 +1,6 @@
 package data.matrix;
 
-public class RangeSumQuery2DImmutable_04 {
+public class RangeSumQuery2DImmutable_304 {
   static class NumMatrix {
 
     private final int[][] prefixSum;

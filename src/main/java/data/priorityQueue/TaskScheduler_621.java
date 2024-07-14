@@ -18,24 +18,42 @@ public class TaskScheduler_621 {
     }
 
     var units = 0;
+//    while (!pq.isEmpty()) {
+//      // pop n + 1 chars
+//      var group = new ArrayList<Character>();
+//      for (var i = 0; i <= n; i++) {
+//        if (!pq.isEmpty()) {
+//          var t = pq.poll();
+//          units++;
+//          count.put(t, count.get(t) - 1);
+//          if (count.get(t) > 0) {
+//            group.add(t);
+//          }
+//        } else {
+//          if (!group.isEmpty()) {
+//            units++;
+//          }
+//        }
+//      }
+//      group.forEach(pq::offer);
+//    }
+
     while (!pq.isEmpty()) {
-      // pop n + 1 chars
-      var group = new ArrayList<Character>();
-      for (var i = 0; i <= n; i++) {
-        if (!pq.isEmpty()) {
-          var t = pq.poll();
-          units++;
-          count.put(t, count.get(t) - 1);
-          if (count.get(t) > 0) {
-            group.add(t);
-          }
-        } else {
-          if (!group.isEmpty()) {
-            units++;
-          }
+      var list = new ArrayList<Character>();
+      var size = Math.min(n + 1, pq.size());
+      for (var i = 0; i < size; i++) {
+        var task = pq.poll();
+        count.put(task, count.get(task) - 1);
+        if (count.get(task) > 0) {
+          list.add(task);
         }
       }
-      group.forEach(pq::offer);
+      pq.addAll(list);
+      if (pq.isEmpty()) {
+        units += size;
+      } else {
+        units += n + 1;
+      }
     }
 
     return units;

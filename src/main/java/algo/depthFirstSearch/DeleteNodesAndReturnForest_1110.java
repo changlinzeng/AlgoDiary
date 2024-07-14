@@ -3,30 +3,27 @@ package algo.depthFirstSearch;
 import datautil.tree.Tree;
 import datautil.tree.TreeNode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DeleteNodesAndReturnForest_1110 {
     public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
         var roots = new ArrayList<TreeNode>();
-        var toDelete = new HashMap<Integer, Integer>();
+        var toDelete = new HashSet<Integer>();
         for (var d : to_delete) {
-            toDelete.put(d, 1);
+            toDelete.add(d);
         }
-        if (!toDelete.containsKey(root.val)) {
+        if (!toDelete.contains(root.val)) {
             roots.add(root);
         }
         delete(root, toDelete, null, roots);
         return roots;
     }
 
-    private static void delete(TreeNode node, Map<Integer, Integer> toDelete, TreeNode parent, List<TreeNode> roots) {
+    private static void delete(TreeNode node, Set<Integer> toDelete, TreeNode parent, List<TreeNode> roots) {
         if (node == null) {
             return;
         }
-        if (toDelete.containsKey(node.val)) {
+        if (toDelete.contains(node.val)) {
             var left = node.left;
             var right = node.right;
             node.left = null;
@@ -39,13 +36,13 @@ public class DeleteNodesAndReturnForest_1110 {
                 }
             }
             if (left != null) {
-                if (!toDelete.containsKey(left.val)) {
+                if (!toDelete.contains(left.val)) {
                     roots.add(left);
                 }
                 delete(left, toDelete, node, roots);
             }
             if (right != null) {
-                if (!toDelete.containsKey(right.val)) {
+                if (!toDelete.contains(right.val)) {
                     roots.add(right);
                 }
                 delete(right, toDelete, node, roots);

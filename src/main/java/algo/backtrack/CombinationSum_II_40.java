@@ -26,12 +26,9 @@ public class CombinationSum_II_40 {
             if (i > start && candidates[i] == candidates[i - 1]) {
                 continue;
             }
-            var candidate = candidates[i];
-            combination.add(candidate);
-            target -= candidate;
-            backtrack(candidates, target, i + 1, combination, combinations);
-            combination.remove(combination.size() - 1);
-            target += candidate;
+            combination.add(candidates[i]);
+            backtrack(candidates, target - candidates[i], i + 1, combination, combinations);
+            combination.removeLast();
         }
     }
 
