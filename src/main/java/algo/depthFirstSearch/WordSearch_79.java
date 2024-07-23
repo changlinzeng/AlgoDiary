@@ -2,9 +2,13 @@ package algo.depthFirstSearch;
 
 public class WordSearch_79 {
     public static boolean exist(char[][] board, String word) {
-        for (var i = 0; i < board.length; i++) {
-            for (var j = 0; j < board[0].length; j++) {
-                if (search(board, i, j, word, 0, new boolean[board.length][board[0].length])) {
+        int rows = board.length, cols = board[0].length;
+        if (rows == 1 && cols == 1 && word.length() == 1) {
+            return board[0][0] == word.charAt(0);
+        }
+        for (var i = 0; i < rows; i++) {
+            for (var j = 0; j < cols; j++) {
+                if (dfs(board, word, 0, i, j, new boolean[rows][cols])) {
                     return true;
                 }
             }
@@ -12,50 +16,26 @@ public class WordSearch_79 {
         return false;
     }
 
-    private static boolean search(char[][] board, int row, int col, String word, int index, boolean[][] visited) {
-        int rows = board.length, cols = board[0].length;
-        // reach the end
+    private static boolean dfs(char[][] board, String word, int index, int row, int col, boolean[][] visited) {
         if (index == word.length()) {
             return true;
         }
         if (visited[row][col] || board[row][col] != word.charAt(index)) {
             return false;
         }
-
+        int[][] directions = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
         visited[row][col] = true;
-
-        if (index == word.length() - 1) {
-            return true;
-        }
-
-        var found = false;
-        if (row > 0) {
-            if (search(board, row - 1, col, word, index + 1, visited)) {
-                found = true;
+        for (var direction : directions) {
+            int nextRow = row + direction[0], nextCol = col + direction[1];
+            if (nextRow >= 0 && nextRow < board.length && nextCol >= 0 && nextCol < board[0].length) {
+                if (dfs(board, word, index + 1, nextRow, nextCol, visited)) {
+                    return true;
+                }
             }
         }
-        if (!found && row < board.length - 1) {
-            if (search(board, row + 1, col, word, index + 1, visited)) {
-                found = true;
-            }
-        }
-        if (!found && col > 0) {
-            if (search(board, row, col - 1, word, index + 1, visited)) {
-                found = true;
-            }
-        }
-        if (!found && col < board[0].length - 1) {
-            if (search(board, row, col + 1, word, index + 1, visited)) {
-                found = true;
-            }
-        }
-
-        // revert visited as one cell may be used more than once for different words
-        if (!found) {
-            visited[row][col] = false;
-        }
-
-        return found;
+        // revert if we could not find word from current cell so current cell can be used in other search paths
+        visited[row][col] = false;
+        return false;
     }
 
     public static void main(String[] args) {

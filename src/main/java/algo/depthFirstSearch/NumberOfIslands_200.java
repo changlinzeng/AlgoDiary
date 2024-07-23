@@ -3,36 +3,31 @@ package algo.depthFirstSearch;
 public class NumberOfIslands_200 {
     public static int numIslands(char[][] grid) {
         int row = grid.length, col = grid[0].length;
-        var visited = new boolean[row][col];
         var num = 0;
         for (var i = 0; i < row; i++) {
             for (var j = 0; j < col; j++) {
-                if (!visited[i][j] && grid[i][j] == '1') {
-                    num++;
-                    dfs(grid, i, j, visited);
+                if (grid[i][j] == '1') {
+                    num += dfs(grid, i, j);
                 }
             }
         }
         return num;
     }
 
-    private static void dfs(char[][] grid, int row, int col, boolean[][] visited) {
-        if (visited[row][col] || grid[row][col] == '0') {
-            return;
+    private static int dfs(char[][] grid, int row, int col) {
+        int[][] directions = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        if (grid[row][col] == '0') {
+            return 0;
         }
-        visited[row][col] = true;
-        if (row - 1 >= 0) {
-            dfs(grid, row - 1, col, visited);
+        grid[row][col] = '0';
+        for (var direction : directions) {
+            int nextRow = row + direction[0], nextCol = col + direction[1];
+            if (nextRow >= 0 && nextRow < grid.length && nextCol >= 0 && nextCol < grid[0].length
+                    && grid[nextRow][nextCol] == '1') {
+                dfs(grid, nextRow, nextCol);
+            }
         }
-        if (row + 1 < grid.length) {
-            dfs(grid, row + 1, col, visited);
-        }
-        if (col - 1 >= 0) {
-            dfs(grid, row, col - 1, visited);
-        }
-        if (col + 1 < grid[0].length) {
-            dfs(grid, row, col + 1, visited);
-        }
+        return 1;
     }
 
     public static void main(String[] args) {

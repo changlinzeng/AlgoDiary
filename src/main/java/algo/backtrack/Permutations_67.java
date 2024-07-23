@@ -20,13 +20,13 @@ public class Permutations_67 {
         perm.add(nums[i]);
         backtrack(nums, result, perm, visited);
         visited[i] = false;
-        perm.remove(perm.size() - 1);
+        perm.removeLast();
       }
     }
   }
 
   public static void main(String[] args) {
-//    permute(new int[]{1,2,3}).forEach(System.out::println);
+    permute(new int[]{1,2,3}).forEach(System.out::println);
     permute(new int[]{1,2,3,4,5,6,7,8,9}).forEach(System.out::println);
   }
 }
