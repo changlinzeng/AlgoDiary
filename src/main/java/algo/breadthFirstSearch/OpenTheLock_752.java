@@ -4,69 +4,58 @@ import java.util.*;
 
 public class OpenTheLock_752 {
   public static int openLock(String[] deadends, String target) {
-    if ("0000".equals(target)) {
-      return 0;
-    }
-
-    var rounds = 1;
+    var start = "0000";
+    var rounds = 0;
     var dead = new HashSet<>(Arrays.asList(deadends));
     var visited = new HashSet<String>();
+
+    if (dead.contains(start)) {
+      return -1;
+    }
+
     var q = new ArrayDeque<String>();
-    q.offer("0000");
+    q.offer(start);
     while (!q.isEmpty()) {
       var size = q.size();
+      var list = new ArrayList<String>();
       for (var i = 0; i < size; i++) {
         var next = q.poll();
-        if (dead.contains(next)) {
-          continue;
+        if (target.equals(next)) {
+          return rounds;
         }
         if (!visited.add(next)) {
           continue;
         }
-        var result = new ArrayList<String>();
-        if (getNext(next, dead, target, result)) {
-          return rounds;
-        } else {
-          result.forEach(q::offer);
-        }
+        list.addAll(getNext(next, dead));
       }
+      list.forEach(q::offer);
       rounds++;
     }
     return -1;
   }
 
-  private static boolean getNext(String s, Set<String> dead, String target, List<String> result) {
-    var found = false;
-    for (var i = 0; i < 4; i++) {
-      var ch = s.charAt(i);
-      var n1 = replace(s, i, ch == '9' ? '0' : (char)(ch + 1));
-      var n2 = replace(s, i,  ch == '0' ? '9' : (char)(ch - 1));
-      if (!dead.contains(n1)) {
-        if (target.equals(n1)) {
-          found = true;
-        }
-        result.add(n1);
-      }
-      if (!dead.contains(n2)) {
-        if (target.equals(n2)) {
-          found = true;
-        }
-        result.add(n2);
-      }
-    }
-    return found;
-  }
-
-  private static String replace(String s, int index, char c) {
-    var r = "";
+  private static List<String> getNext(String s, Set<String> dead) {
+    var result = new ArrayList<String>();
     for (var i = 0; i < s.length(); i++) {
-      if (i != index) {
-        r += s.charAt(i);
-      } else {
-        r += c;
+      String res1 = "", res2 = "";
+      for (var j = 0; j < s.length(); j++) {
+        if (j == i) {
+          var c1 = s.charAt(i) == '9' ? '0' : (char)(s.charAt(i) + 1);
+          var c2 = s.charAt(i) == '0' ? '9' : (char)(s.charAt(i) - 1);
+          res1 += c1;
+          res2 += c2;
+        } else {
+          res1 += s.charAt(j);
+          res2 += s.charAt(j);
+        }
+      }
+      for (var res : new String[]{res1, res2}) {
+        if (!dead.contains(res)) {
+          result.add(res);
+        }
       }
     }
-    return r;
+    return result;
   }
 
   public static void main(String[] args) {
